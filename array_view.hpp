@@ -53,7 +53,7 @@ namespace ext
         {
         }
 
-        constexpr bool empty() const
+        constexpr bool empty() const noexcept
         {
             return size() == 0;
         }
