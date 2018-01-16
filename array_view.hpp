@@ -122,32 +122,32 @@ namespace ext
             other = this_copy;
         }
 
-        array_view subview(size_type offset, size_type count) const
+        constexpr array_view subview(size_type offset, size_type count) const
         {
             return {data() + offset, count};
         }
 
-        array_view subview(size_type offset) const
+        constexpr array_view subview(size_type offset) const
         {
             return subview(offset, size() - offset);
         }
 
-        array_view first(size_type count) const
+        constexpr array_view first(size_type count) const
         {
             return subview(0, count);
         }
 
-        array_view last(size_type count) const
+        constexpr array_view last(size_type count) const
         {
             return subview(size() - count, count);
         }
 
-        array_view drop_first(size_type count) const
+        constexpr array_view drop_first(size_type count) const
         {
             return subview(count);
         }
 
-        array_view drop_last(size_type count) const
+        constexpr array_view drop_last(size_type count) const
         {
             return subview(0, size() - count);
         }

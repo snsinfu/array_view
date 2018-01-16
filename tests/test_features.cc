@@ -265,6 +265,16 @@ TEST_CASE("array_view supports constexpr for literal strings")
         constexpr ext::array_view<char const> view = ext::view("abc");
         constexpr ext::array_view<char const> cview = view.as_const();
     }
+
+    SECTION("constexpr slicing")
+    {
+        constexpr ext::array_view<char const> view = ext::view("abc");
+        constexpr ext::array_view<char const> subview = view.subview(1, 2);
+        constexpr ext::array_view<char const> first = view.first(2);
+        constexpr ext::array_view<char const> last = view.last(2);
+        constexpr ext::array_view<char const> tail = view.drop_first(2);
+        constexpr ext::array_view<char const> init = view.drop_last(2);
+    }
 }
 
 TEST_CASE("array_view can be transformed to const view")
