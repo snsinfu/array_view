@@ -26,10 +26,10 @@
 #ifndef SNSINFU_EXT_ARRAY_VIEW_HPP
 #define SNSINFU_EXT_ARRAY_VIEW_HPP
 
-#include <cstddef>      // size_t
-#include <iterator>     // reverse_iterator
-#include <stdexcept>    // out_of_range
-#include <utility>      // declval
+#include <cstddef> // size_t
+#include <iterator> // reverse_iterator
+#include <stdexcept> // out_of_range
+#include <utility> // declval
 
 namespace snsinfu
 {
@@ -185,7 +185,7 @@ namespace ext
         }
 
         template<typename T, std::size_t N>
-        constexpr auto data(T(& arr)[N]) noexcept -> T*
+        constexpr auto data(T (&arr)[N]) noexcept -> T*
         {
             return arr;
         }
@@ -197,15 +197,15 @@ namespace ext
         }
 
         template<typename T, std::size_t N>
-        constexpr auto size(T(&)[N]) noexcept -> std::size_t
+        constexpr auto size(T (&)[N]) noexcept -> std::size_t
         {
             return N;
         }
     }
 
     template<typename Cont,
-             typename P = decltype(detail::data(std::declval<Cont&>())),
-             typename S = decltype(detail::size(std::declval<Cont&>()))>
+        typename P = decltype(detail::data(std::declval<Cont&>())),
+        typename S = decltype(detail::size(std::declval<Cont&>()))>
     constexpr array_view<detail::deref_t<P>> view(Cont& cont) noexcept
     {
         return {detail::data(cont), detail::size(cont)};
