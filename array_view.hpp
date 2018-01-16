@@ -114,6 +114,12 @@ namespace ext
         return array_view<T>{vec.data(), vec.size()};
     }
 
+    template<typename T, std::size_t N>
+    array_view<T> view(T(& arr)[N])
+    {
+        return array_view<T>{arr, N};
+    }
+
 } // ext
 } // snsinfu
 

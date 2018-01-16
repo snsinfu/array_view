@@ -64,3 +64,9 @@ TEST_CASE("array_view can access vector elements")
         CHECK(it == end);
     }
 }
+
+TEST_CASE("array_view can access built-in arrays")
+{
+    int array[] = {0, 1, 2, 3};
+    ext::array_view<int> view = ext::view(array);
+}
