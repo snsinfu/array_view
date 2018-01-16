@@ -363,3 +363,12 @@ TEST_CASE("array_view can be sliced before suffix")
     ext::array_view<int> const init = view.drop_last(2);
     CHECK(init == view.subview(0, view.size() - 2));
 }
+
+TEST_CASE("array_view provides emptiness check")
+{
+    std::vector<int> vector = {0, 1, 2, 3};
+    ext::array_view<int> view = ext::view(vector);
+    ext::array_view<int> empty_view;
+    CHECK_FALSE(view.empty());
+    CHECK(empty_view.empty());
+}
