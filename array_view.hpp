@@ -37,23 +37,25 @@ namespace ext
     class array_view
     {
       public:
+        using reference = T&;
+
         array_view(T* data, std::size_t size)
             : data_{data}
             , size_{size}
         {
         }
 
-        T& front()
+        reference front()
         {
             return data_[0];
         }
 
-        T& back()
+        reference back()
         {
             return data_[size_ - 1];
         }
 
-        T& operator[](std::size_t idx)
+        reference operator[](std::size_t idx)
         {
             return data_[idx];
         }
