@@ -386,8 +386,8 @@ TEST_CASE("array_view provides emptiness check")
 
     SECTION("fact check")
     {
-        ext::array_view<int> view = ext::view(vector);
-        ext::array_view<int> empty_view;
+        ext::array_view<int> const view = ext::view(vector);
+        ext::array_view<int> const empty_view;
         CHECK_FALSE(view.empty());
         CHECK(empty_view.empty());
     }
