@@ -45,4 +45,10 @@ TEST_CASE("array_view can access vector elements")
         }
         CHECK(vector == std::vector<int>{10, 11, 12, 13});
     }
+
+    SECTION("indexing with bounds-check")
+    {
+        CHECK_NOTHROW(view.at(0));
+        CHECK_THROWS_AS(view.at(view.size()), std::out_of_range);
+    }
 }

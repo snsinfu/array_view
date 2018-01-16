@@ -72,6 +72,14 @@ namespace ext
             return data_[idx];
         }
 
+        reference at(size_type idx)
+        {
+            if (idx >= size_) {
+                throw std::out_of_range("array_view out-of-bounds access");
+            }
+            return operator[](idx);
+        }
+
         T* begin()
         {
             return data_;
