@@ -74,6 +74,11 @@ TEST_CASE("array_view can access built-in arrays")
     {
         ext::array_view<int> view = ext::view(array);
     }
+
+    SECTION("won't throw")
+    {
+        CHECK(noexcept(ext::view(array)));
+    }
 }
 
 TEST_CASE("array_view can access std::array")
