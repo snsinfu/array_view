@@ -77,3 +77,12 @@ TEST_CASE("array_view can access std::array")
     std::array<int, 4> array = {{0, 1, 2, 3}};
     ext::array_view<int> view = ext::view(array);
 }
+
+TEST_CASE("array_view can access std::vector with custom allocator")
+{
+    class custom_int_allocator : public std::allocator<int>
+    {
+    };
+    std::vector<int, custom_int_allocator> vector = {0, 1, 2, 3};
+    ext::array_view<int> view = ext::view(vector);
+}

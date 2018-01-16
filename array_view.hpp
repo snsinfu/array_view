@@ -109,8 +109,8 @@ namespace ext
         size_type size_;
     };
 
-    template<typename T>
-    array_view<T> view(std::vector<T>& vec)
+    template<typename T, typename Allocator>
+    array_view<T> view(std::vector<T, Allocator>& vec)
     {
         return array_view<T>{vec.data(), vec.size()};
     }
