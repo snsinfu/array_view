@@ -65,34 +65,34 @@ namespace ext
 
         constexpr reference front() const
         {
-            return data_[0];
+            return data()[0];
         }
 
         constexpr reference back() const
         {
-            return data_[size_ - 1];
+            return data()[size() - 1];
         }
 
         constexpr reference operator[](size_type idx) const
         {
-            return data_[idx];
+            return data()[idx];
         }
 
         constexpr reference at(size_type idx) const
         {
-            return idx < size_ ? operator[](idx)
-                               : throw std::out_of_range(
-                                     "array_view access out-of-bounds");
+            return idx < size() ? operator[](idx)
+                                : throw std::out_of_range(
+                                      "array_view access out-of-bounds");
         }
 
         constexpr iterator begin() const noexcept
         {
-            return data_;
+            return data();
         }
 
         constexpr iterator end() const noexcept
         {
-            return data_ + size_;
+            return data() + size();
         }
 
         reverse_iterator rbegin() const noexcept
@@ -107,7 +107,7 @@ namespace ext
 
         constexpr array_view<T const> as_const() const noexcept
         {
-            return {data_, size_};
+            return {data(), size()};
         }
 
         void swap(array_view& other) noexcept
@@ -119,7 +119,7 @@ namespace ext
 
         array_view subview(size_type offset, size_type count) const
         {
-            return {data_ + offset, count};
+            return {data() + offset, count};
         }
 
         array_view subview(size_type offset) const
