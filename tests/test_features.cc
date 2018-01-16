@@ -76,64 +76,86 @@ TEST_CASE("array_view is default constructible")
     CHECK(view.size() == 0);
 }
 
-TEST_CASE("")
+TEST_CASE("array_view supports accessing elements by indidces")
 {
     std::vector<int> vector = {0, 1, 2, 3};
-    ext::array_view<int> view = ext::view(vector);
+    ext::array_view<int> const view = ext::view(vector);
 
-    SECTION("reading elements via indices")
+    SECTION("read")
     {
         CHECK(view[0] == 0);
         CHECK(view[2] == 2);
     }
 
-    SECTION("modifying elements via indexing")
+    SECTION("write")
     {
         view[0] = 100;
         CHECK(vector[0] == 100);
     }
+}
 
-    SECTION("accessing front and back elements")
-    {
-        CHECK(view.front() == 0);
-        CHECK(view.back() == 3);
-    }
+TEST_CASE("array_view supports bounds-checked access to elements")
+{
+    std::vector<int> vector = {0, 1, 2, 3};
+    ext::array_view<int> const view = ext::view(vector);
 
-    SECTION("getting raw pointer")
-    {
-        CHECK(view.data() == vector.data());
-    }
-
-    SECTION("getting the number of elements")
-    {
-        CHECK(view.size() == vector.size());
-    }
-
-    SECTION("iterating with range interface")
-    {
-        for (int& elm : view) {
-            elm += 10;
-        }
-        CHECK(vector == std::vector<int>{10, 11, 12, 13});
-    }
-
-    SECTION("indexing with bounds-check")
+    SECTION("read")
     {
         CHECK_NOTHROW(view.at(0));
         CHECK_THROWS_AS(view.at(view.size()), std::out_of_range);
     }
 
-    SECTION("reverse iterator")
+    SECTION("write")
     {
-        auto beg = view.rbegin();
-        auto end = view.rend();
-
-        auto it = beg;
-        CHECK(*it == vector.back());
-
-        it += view.end() - view.begin();
-        CHECK(it == end);
+        CHECK_NOTHROW(view.at(0) = 100);
     }
+}
+
+TEST_CASE("array_view supports front and back elements access")
+{
+    std::vector<int> vector = {0, 1, 2, 3};
+    ext::array_view<int> const view = ext::view(vector);
+
+    CHECK(view.front() == 0);
+    CHECK(view.back() == 3);
+}
+
+TEST_CASE("array_view provides raw pointer")
+{
+    std::vector<int> vector = {0, 1, 2, 3};
+    ext::array_view<int> const view = ext::view(vector);
+    CHECK(view.data() == vector.data());
+}
+
+TEST_CASE("array_view provides element count")
+{
+    std::vector<int> vector = {0, 1, 2, 3};
+    ext::array_view<int> const view = ext::view(vector);
+    CHECK(view.size() == vector.size());
+}
+
+TEST_CASE("array_view supports range-based for loop")
+{
+    std::vector<int> vector = {0, 1, 2, 3};
+    ext::array_view<int> const view = ext::view(vector);
+    for (int& elm : view) {
+        elm++;
+    }
+}
+
+TEST_CASE("array_view provides reverse iterators")
+{
+    std::vector<int> vector = {0, 1, 2, 3};
+    ext::array_view<int> const view = ext::view(vector);
+
+    auto const beg = view.rbegin();
+    auto const end = view.rend();
+
+    auto it = beg;
+    CHECK(*it == vector.back());
+
+    it += view.end() - view.begin();
+    CHECK(it == end);
 }
 
 TEST_CASE("array_view supports constexpr for literal strings")
