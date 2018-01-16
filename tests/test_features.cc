@@ -32,4 +32,9 @@ TEST_CASE("array_view can access vector elements")
     {
         CHECK(view.data() == vector.data());
     }
+
+    SECTION("getting the number of elements")
+    {
+        CHECK(view.size() == vector.size());
+    }
 }

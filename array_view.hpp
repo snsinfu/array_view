@@ -45,6 +45,11 @@ namespace ext
         {
         }
 
+        std::size_t size()
+        {
+            return size_;
+        }
+
         T* data()
         {
             return data_;
