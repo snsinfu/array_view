@@ -29,6 +29,7 @@
 #include <cstddef> // size_t
 #include <iterator> // reverse_iterator
 #include <stdexcept> // out_of_range
+#include <type_traits> // remove_cv
 #include <utility> // declval
 
 namespace snsinfu
@@ -39,6 +40,7 @@ namespace ext
     class array_view
     {
       public:
+        using value_type = typename std::remove_cv<T>::type;
         using pointer = T*;
         using reference = T&;
         using size_type = std::size_t;

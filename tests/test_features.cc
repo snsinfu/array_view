@@ -1,5 +1,6 @@
 #include <array>
 #include <string>
+#include <type_traits>
 #include <vector>
 
 #include <array_view.hpp>
@@ -443,4 +444,16 @@ TEST_CASE("array_view provides emptiness check")
         ext::array_view<int> view = ext::view(vector);
         CHECK(noexcept(view.empty()));
     }
+}
+
+TEST_CASE("array_view exposes standard typedefs")
+{
+    using A = ext::array_view<int const>;
+
+    CHECK(std::is_same<A::value_type, int>::value);
+    CHECK(std::is_same<A::pointer, int const*>::value);
+    CHECK(std::is_same<A::reference, int const&>::value);
+    CHECK(std::is_same<A::size_type, std::size_t>::value);
+    CHECK(sizeof(A::iterator) > 0);
+    CHECK(sizeof(A::reverse_iterator) > 0);
 }
