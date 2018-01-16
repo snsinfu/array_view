@@ -26,6 +26,7 @@
 #ifndef SNSINFU_EXT_ARRAY_VIEW_HPP
 #define SNSINFU_EXT_ARRAY_VIEW_HPP
 
+#include <cstddef>
 #include <vector>
 
 namespace snsinfu
@@ -35,12 +36,27 @@ namespace ext
     template<typename T>
     class array_view
     {
+      public:
+        array_view(T* data, std::size_t size)
+            : data_{data}
+            , size_{size}
+        {
+        }
+
+        T operator[](std::size_t idx)
+        {
+            return data_[idx];
+        }
+
+      private:
+        T* data_;
+        std::size_t size_;
     };
 
     template<typename T>
-    array_view<T> view(std::vector<T>&)
+    array_view<T> view(std::vector<T>& vec)
     {
-        return array_view<T>{};
+        return array_view<T>{vec.data(), vec.size()};
     }
 
 } // ext
