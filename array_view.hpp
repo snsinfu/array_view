@@ -41,6 +41,7 @@ namespace ext
         using pointer = T*;
         using reference = T&;
         using size_type = std::size_t;
+        using iterator = T*;
 
         array_view(pointer data, size_type size)
             : data_{data}
@@ -81,12 +82,12 @@ namespace ext
             return operator[](idx);
         }
 
-        T* begin()
+        iterator begin()
         {
             return data_;
         }
 
-        T* end()
+        iterator end()
         {
             return data_ + size_;
         }
