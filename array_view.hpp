@@ -85,12 +85,12 @@ namespace ext
                                      "array_view access out-of-bounds");
         }
 
-        constexpr iterator begin() const
+        constexpr iterator begin() const noexcept
         {
             return data_;
         }
 
-        constexpr iterator end() const
+        constexpr iterator end() const noexcept
         {
             return data_ + size_;
         }

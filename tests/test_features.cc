@@ -177,6 +177,12 @@ TEST_CASE("array_view provides iterators")
         it += view.end() - view.begin();
         CHECK(it == end);
     }
+
+    SECTION("must succeed")
+    {
+        CHECK(noexcept(view.begin()));
+        CHECK(noexcept(view.end()));
+    }
 }
 
 TEST_CASE("array_view provides reverse iterators")
