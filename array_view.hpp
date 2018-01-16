@@ -124,6 +124,11 @@ namespace ext
             return {data_ + offset, size};
         }
 
+        array_view subview(size_type offset) const
+        {
+            return {data_ + offset, size_ - offset};
+        }
+
       private:
         pointer data_ = nullptr;
         size_type size_ = 0;

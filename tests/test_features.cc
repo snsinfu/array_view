@@ -316,7 +316,18 @@ TEST_CASE("array_view can be sliced")
 {
     std::vector<int> vector = {0, 1, 2, 3};
     ext::array_view<int> const view = ext::view(vector);
-    ext::array_view<int> const subview = view.subview(1, 2);
-    CHECK(subview.data() == view.data() + 1);
-    CHECK(subview.size() == 2);
+
+    SECTION("closed slice")
+    {
+        ext::array_view<int> const subview = view.subview(1, 2);
+        CHECK(subview.data() == view.data() + 1);
+        CHECK(subview.size() == 2);
+    }
+
+    SECTION("half-open slice")
+    {
+        ext::array_view<int> const subview = view.subview(1);
+        CHECK(subview.data() == view.data() + 1);
+        CHECK(subview.size() == view.size() - 1);
+    }
 }
