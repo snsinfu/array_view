@@ -45,6 +45,8 @@ namespace ext
         using iterator = T*;
         using reverse_iterator = std::reverse_iterator<iterator>;
 
+        array_view() = default;
+
         array_view(pointer data, size_type size)
             : data_{data}
             , size_{size}
@@ -105,8 +107,8 @@ namespace ext
         }
 
       private:
-        pointer data_;
-        size_type size_;
+        pointer data_ = nullptr;
+        size_type size_ = 0;
     };
 
     template<typename T, typename Allocator>

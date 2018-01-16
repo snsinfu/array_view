@@ -86,3 +86,10 @@ TEST_CASE("array_view can access std::vector with custom allocator")
     std::vector<int, custom_int_allocator> vector = {0, 1, 2, 3};
     ext::array_view<int> view = ext::view(vector);
 }
+
+TEST_CASE("array_view is default constructible")
+{
+    ext::array_view<int> view;
+    CHECK(view.data() == nullptr);
+    CHECK(view.size() == 0);
+}
