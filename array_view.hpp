@@ -119,6 +119,11 @@ namespace ext
             other = this_copy;
         }
 
+        array_view subview(size_type offset, size_type size) const
+        {
+            return {data_ + offset, size};
+        }
+
       private:
         pointer data_ = nullptr;
         size_type size_ = 0;
