@@ -29,6 +29,7 @@
 #include <array>
 #include <cstddef>
 #include <iterator>
+#include <string>
 #include <vector>
 
 namespace snsinfu
@@ -131,6 +132,12 @@ namespace ext
     array_view<T> view(std::array<T, N>& arr) noexcept
     {
         return array_view<T>{arr.data(), N};
+    }
+
+    template<typename Char, typename Traits>
+    array_view<Char const> view(std::basic_string<Char, Traits>& str) noexcept
+    {
+        return array_view<Char const>{str.data(), str.size()};
     }
 
 } // ext

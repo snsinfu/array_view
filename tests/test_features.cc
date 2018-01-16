@@ -1,4 +1,5 @@
 #include <array>
+#include <string>
 #include <vector>
 
 #include <array_view.hpp>
@@ -66,6 +67,21 @@ TEST_CASE("array_view can access std::vector with custom allocator")
     SECTION("won't throw")
     {
         CHECK(noexcept(ext::view(vector)));
+    }
+}
+
+TEST_CASE("array_view can access std::string")
+{
+    std::string string = "abc";
+
+    SECTION("smoke test")
+    {
+        ext::array_view<char const> view = ext::view(string);
+    }
+
+    SECTION("won't throw")
+    {
+        CHECK(noexcept(ext::view(string)));
     }
 }
 
