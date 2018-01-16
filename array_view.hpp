@@ -112,6 +112,13 @@ namespace ext
             return {data_, size_};
         }
 
+        void swap(array_view& other) noexcept
+        {
+            auto const this_copy = *this;
+            *this = other;
+            other = this_copy;
+        }
+
       private:
         pointer data_ = nullptr;
         size_type size_ = 0;

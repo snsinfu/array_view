@@ -282,3 +282,20 @@ TEST_CASE("array_view can be transformed to const view")
         CHECK(noexcept(view.as_const()));
     }
 }
+
+TEST_CASE("two array_views can be swapped")
+{
+    std::vector<int> vector1 = {0, 1, 2, 3};
+    std::vector<int> vector2 = {4, 5};
+
+    ext::array_view<int> view1 = ext::view(vector1);
+    ext::array_view<int> view2 = ext::view(vector2);
+
+    view1.swap(view2);
+
+    CHECK(view1.data() == vector2.data());
+    CHECK(view1.size() == vector2.size());
+
+    CHECK(view2.data() == vector1.data());
+    CHECK(view2.size() == vector1.size());
+}
