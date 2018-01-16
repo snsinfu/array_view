@@ -38,14 +38,15 @@ namespace ext
     {
       public:
         using reference = T&;
+        using size_type = std::size_t;
 
-        array_view(T* data, std::size_t size)
+        array_view(T* data, size_type size)
             : data_{data}
             , size_{size}
         {
         }
 
-        std::size_t size()
+        size_type size()
         {
             return size_;
         }
@@ -65,14 +66,14 @@ namespace ext
             return data_[size_ - 1];
         }
 
-        reference operator[](std::size_t idx)
+        reference operator[](size_type idx)
         {
             return data_[idx];
         }
 
       private:
         T* data_;
-        std::size_t size_;
+        size_type size_;
     };
 
     template<typename T>
