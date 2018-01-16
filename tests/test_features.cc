@@ -331,3 +331,11 @@ TEST_CASE("array_view can be sliced")
         CHECK(subview.size() == view.size() - 1);
     }
 }
+
+TEST_CASE("array_view can be sliced into prefix")
+{
+    std::vector<int> vector = {0, 1, 2, 3};
+    ext::array_view<int> const view = ext::view(vector);
+    ext::array_view<int> const first = view.first(2);
+    CHECK(first == view.subview(0, 2));
+}
