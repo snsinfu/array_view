@@ -42,6 +42,7 @@ namespace ext
         using reference = T&;
         using size_type = std::size_t;
         using iterator = T*;
+        using reverse_iterator = std::reverse_iterator<iterator>;
 
         array_view(pointer data, size_type size)
             : data_{data}
@@ -92,14 +93,14 @@ namespace ext
             return data_ + size_;
         }
 
-        std::reverse_iterator<T*> rbegin()
+        reverse_iterator rbegin()
         {
-            return std::reverse_iterator<T*>{end()};
+            return reverse_iterator{end()};
         }
 
-        std::reverse_iterator<T*> rend()
+        reverse_iterator rend()
         {
-            return std::reverse_iterator<T*>{begin()};
+            return reverse_iterator{begin()};
         }
 
       private:
