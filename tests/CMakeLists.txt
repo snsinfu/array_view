@@ -20,6 +20,7 @@ endif()
 add_executable(run
     run.cc
     test_smoketest.cc
+    test_features.cc
 )
 
 enable_testing()

@@ -26,6 +26,8 @@
 #ifndef SNSINFU_EXT_ARRAY_VIEW_HPP
 #define SNSINFU_EXT_ARRAY_VIEW_HPP
 
+#include <vector>
+
 namespace snsinfu
 {
 namespace ext
@@ -34,6 +36,13 @@ namespace ext
     class array_view
     {
     };
+
+    template<typename T>
+    array_view<T> view(std::vector<T>&)
+    {
+        return array_view<T>{};
+    }
+
 } // ext
 } // snsinfu
 
