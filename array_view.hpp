@@ -80,10 +80,9 @@ namespace ext
 
         constexpr reference at(size_type idx) const
         {
-            if (idx >= size_) {
-                throw std::out_of_range("array_view out-of-bounds access");
-            }
-            return operator[](idx);
+            return idx < size_ ? operator[](idx)
+                               : throw std::out_of_range(
+                                     "array_view access out-of-bounds");
         }
 
         iterator begin() const
@@ -118,7 +117,7 @@ namespace ext
     }
 
     template<typename T, std::size_t N>
-    constexpr array_view<T> view(T(& arr)[N]) noexcept
+    constexpr array_view<T> view(T (&arr)[N]) noexcept
     {
         return array_view<T>{arr, N};
     }
