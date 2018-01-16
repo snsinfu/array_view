@@ -124,7 +124,7 @@ namespace ext
     }
 
     template<typename T, std::size_t N>
-    array_view<T> view(std::array<T, N>& arr)
+    array_view<T> view(std::array<T, N>& arr) noexcept
     {
         return array_view<T>{arr.data(), N};
     }
