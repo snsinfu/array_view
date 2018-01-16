@@ -244,3 +244,10 @@ TEST_CASE("array_view supports constexpr for literal strings")
         constexpr auto end = view.end();
     }
 }
+
+TEST_CASE("array_view can be transformed to const view")
+{
+    std::vector<int> vector = {0, 1, 2, 3};
+    ext::array_view<int> const view = ext::view(vector);
+    ext::array_view<int const> const cview = view.as_const();
+}

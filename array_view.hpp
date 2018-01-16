@@ -105,6 +105,11 @@ namespace ext
             return reverse_iterator{begin()};
         }
 
+        array_view<T const> as_const() const
+        {
+            return {data_, size_};
+        }
+
       private:
         pointer data_ = nullptr;
         size_type size_ = 0;
