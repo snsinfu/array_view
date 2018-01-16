@@ -37,10 +37,11 @@ namespace ext
     class array_view
     {
       public:
+        using pointer = T*;
         using reference = T&;
         using size_type = std::size_t;
 
-        array_view(T* data, size_type size)
+        array_view(pointer data, size_type size)
             : data_{data}
             , size_{size}
         {
@@ -51,7 +52,7 @@ namespace ext
             return size_;
         }
 
-        T* data()
+        pointer data()
         {
             return data_;
         }
@@ -72,7 +73,7 @@ namespace ext
         }
 
       private:
-        T* data_;
+        pointer data_;
         size_type size_;
     };
 
