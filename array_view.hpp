@@ -30,6 +30,7 @@
 #include <cstddef>
 #include <iterator>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace snsinfu
@@ -116,28 +117,51 @@ namespace ext
         size_type size_ = 0;
     };
 
-    template<typename T, typename Allocator>
-    array_view<T> view(std::vector<T, Allocator>& vec) noexcept
+    namespace detail
     {
-        return array_view<T>{vec.data(), vec.size()};
+        template<typename T>
+        struct deref;
+
+        template<typename T>
+        struct deref<T*>
+        {
+            using type = T;
+        };
+
+        template<typename T>
+        using deref_t = typename deref<T>::type;
+
+        template<typename Cont>
+        constexpr auto data(Cont& cont) noexcept -> decltype(cont.data())
+        {
+            return cont.data();
+        }
+
+        template<typename T, std::size_t N>
+        constexpr auto data(T(& arr)[N]) noexcept -> T*
+        {
+            return arr;
+        }
+
+        template<typename Cont>
+        constexpr auto size(Cont& cont) noexcept -> decltype(cont.size())
+        {
+            return cont.size();
+        }
+
+        template<typename T, std::size_t N>
+        constexpr auto size(T(&)[N]) noexcept -> std::size_t
+        {
+            return N;
+        }
     }
 
-    template<typename T, std::size_t N>
-    constexpr array_view<T> view(T (&arr)[N]) noexcept
+    template<typename Cont,
+             typename P = decltype(detail::data(std::declval<Cont&>())),
+             typename S = decltype(detail::size(std::declval<Cont&>()))>
+    constexpr array_view<detail::deref_t<P>> view(Cont& cont) noexcept
     {
-        return array_view<T>{arr, N};
-    }
-
-    template<typename T, std::size_t N>
-    array_view<T> view(std::array<T, N>& arr) noexcept
-    {
-        return array_view<T>{arr.data(), N};
-    }
-
-    template<typename Char, typename Traits>
-    array_view<Char const> view(std::basic_string<Char, Traits>& str) noexcept
-    {
-        return array_view<Char const>{str.data(), str.size()};
+        return {detail::data(cont), detail::size(cont)};
     }
 
 } // ext
