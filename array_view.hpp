@@ -27,6 +27,7 @@
 #define SNSINFU_EXT_ARRAY_VIEW_HPP
 
 #include <cstddef>
+#include <iterator>
 #include <vector>
 
 namespace snsinfu
@@ -88,6 +89,16 @@ namespace ext
         T* end()
         {
             return data_ + size_;
+        }
+
+        std::reverse_iterator<T*> rbegin()
+        {
+            return std::reverse_iterator<T*>{end()};
+        }
+
+        std::reverse_iterator<T*> rend()
+        {
+            return std::reverse_iterator<T*>{begin()};
         }
 
       private:

@@ -51,4 +51,16 @@ TEST_CASE("array_view can access vector elements")
         CHECK_NOTHROW(view.at(0));
         CHECK_THROWS_AS(view.at(view.size()), std::out_of_range);
     }
+
+    SECTION("reverse iterator")
+    {
+        auto beg = view.rbegin();
+        auto end = view.rend();
+
+        auto it = beg;
+        CHECK(*it == vector.back());
+
+        it += view.end() - view.begin();
+        CHECK(it == end);
+    }
 }
