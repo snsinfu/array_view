@@ -53,12 +53,12 @@ namespace ext
         {
         }
 
-        size_type size() const
+        constexpr size_type size() const
         {
             return size_;
         }
 
-        pointer data() const
+        constexpr pointer data() const
         {
             return data_;
         }

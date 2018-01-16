@@ -164,4 +164,11 @@ TEST_CASE("array_view supports constexpr for literal strings")
     {
         constexpr ext::array_view<char const> view = ext::view("abc");
     }
+
+    SECTION("constexpr query of size and pointer")
+    {
+        constexpr ext::array_view<char const> view = ext::view("abc");
+        constexpr std::size_t size = view.size();
+        constexpr char const* ptr = view.data();
+    }
 }
