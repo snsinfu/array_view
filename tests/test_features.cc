@@ -69,13 +69,21 @@ TEST_CASE("array_view can access vector elements")
 TEST_CASE("array_view can access built-in arrays")
 {
     int array[] = {0, 1, 2, 3};
-    ext::array_view<int> view = ext::view(array);
+
+    SECTION("smoke test")
+    {
+        ext::array_view<int> view = ext::view(array);
+    }
 }
 
 TEST_CASE("array_view can access std::array")
 {
     std::array<int, 4> array = {{0, 1, 2, 3}};
-    ext::array_view<int> view = ext::view(array);
+
+    SECTION("smoke test")
+    {
+        ext::array_view<int> view = ext::view(array);
+    }
 }
 
 TEST_CASE("array_view can access std::vector with custom allocator")
@@ -84,7 +92,11 @@ TEST_CASE("array_view can access std::vector with custom allocator")
     {
     };
     std::vector<int, custom_int_allocator> vector = {0, 1, 2, 3};
-    ext::array_view<int> view = ext::view(vector);
+
+    SECTION("smoke test")
+    {
+        ext::array_view<int> view = ext::view(vector);
+    }
 }
 
 TEST_CASE("array_view is default constructible")
