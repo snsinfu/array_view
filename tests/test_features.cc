@@ -1,3 +1,4 @@
+#include <array>
 #include <vector>
 
 #include <array_view.hpp>
@@ -68,5 +69,11 @@ TEST_CASE("array_view can access vector elements")
 TEST_CASE("array_view can access built-in arrays")
 {
     int array[] = {0, 1, 2, 3};
+    ext::array_view<int> view = ext::view(array);
+}
+
+TEST_CASE("array_view can access std::array")
+{
+    std::array<int, 4> array = {{0, 1, 2, 3}};
     ext::array_view<int> view = ext::view(array);
 }

@@ -26,6 +26,7 @@
 #ifndef SNSINFU_EXT_ARRAY_VIEW_HPP
 #define SNSINFU_EXT_ARRAY_VIEW_HPP
 
+#include <array>
 #include <cstddef>
 #include <iterator>
 #include <vector>
@@ -118,6 +119,12 @@ namespace ext
     array_view<T> view(T(& arr)[N])
     {
         return array_view<T>{arr, N};
+    }
+
+    template<typename T, std::size_t N>
+    array_view<T> view(std::array<T, N>& arr)
+    {
+        return array_view<T>{arr.data(), N};
     }
 
 } // ext
