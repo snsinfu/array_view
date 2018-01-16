@@ -216,6 +216,11 @@ namespace ext
         return {detail::data(cont), detail::size(cont)};
     }
 
+    template<typename T>
+    constexpr array_view<T> view(T* ptr, std::size_t size)
+    {
+        return {ptr, size};
+    }
 } // ext
 } // snsinfu
 

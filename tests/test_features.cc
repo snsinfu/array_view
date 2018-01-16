@@ -85,6 +85,23 @@ TEST_CASE("array_view can access std::string")
     }
 }
 
+TEST_CASE("array_view can access raw memory range")
+{
+    int array[] = {0, 1, 2, 3};
+    int* const ptr = array;
+    std::size_t const size = 4;
+
+    SECTION("smoke test")
+    {
+        ext::array_view<int> view = ext::view(ptr, size);
+    }
+
+    SECTION("may fail")
+    {
+        CHECK_FALSE(noexcept(ext::view(ptr, size)));
+    }
+}
+
 TEST_CASE("array_view is default constructible")
 {
     ext::array_view<int> view;
