@@ -134,6 +134,11 @@ namespace ext
             return {data_, size};
         }
 
+        array_view last(size_type size) const
+        {
+            return {data_ + size_ - size, size};
+        }
+
       private:
         pointer data_ = nullptr;
         size_type size_ = 0;
