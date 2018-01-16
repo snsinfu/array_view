@@ -15,4 +15,10 @@ TEST_CASE("array_view can access vector elements")
         CHECK(view[0] == 0);
         CHECK(view[2] == 2);
     }
+
+    SECTION("modifying elements via indexing")
+    {
+        view[0] = 100;
+        CHECK(vector[0] == 100);
+    }
 }

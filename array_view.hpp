@@ -43,7 +43,7 @@ namespace ext
         {
         }
 
-        T operator[](std::size_t idx)
+        T& operator[](std::size_t idx)
         {
             return data_[idx];
         }
