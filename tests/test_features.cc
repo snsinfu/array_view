@@ -212,4 +212,11 @@ TEST_CASE("array_view supports constexpr for literal strings")
         CHECK(c == 'c');
         CHECK(z == '\0');
     }
+
+    SECTION("constexpr iterators")
+    {
+        constexpr ext::array_view<char const> view = ext::view("abc");
+        constexpr auto beg = view.begin();
+        constexpr auto end = view.end();
+    }
 }
