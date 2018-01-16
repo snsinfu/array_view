@@ -161,6 +161,24 @@ TEST_CASE("array_view supports range-based for loop")
     }
 }
 
+TEST_CASE("array_view provides iterators")
+{
+    std::vector<int> vector = {0, 1, 2, 3};
+    ext::array_view<int> const view = ext::view(vector);
+
+    SECTION("fact check")
+    {
+        auto const beg = view.begin();
+        auto const end = view.end();
+
+        auto it = beg;
+        CHECK(*it == vector.front());
+
+        it += view.end() - view.begin();
+        CHECK(it == end);
+    }
+}
+
 TEST_CASE("array_view provides reverse iterators")
 {
     std::vector<int> vector = {0, 1, 2, 3};
