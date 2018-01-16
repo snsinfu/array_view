@@ -124,27 +124,27 @@ namespace ext
 
         array_view subview(size_type offset) const
         {
-            return {data_ + offset, size_ - offset};
+            return subview(offset, size() - offset);
         }
 
         array_view first(size_type size) const
         {
-            return {data_, size};
+            return subview(0, size);
         }
 
         array_view last(size_type size) const
         {
-            return {data_ + size_ - size, size};
+            return subview(this->size() - size, size);
         }
 
         array_view drop_first(size_type count) const
         {
-            return {data_ + count, size_ - count};
+            return subview(count);
         }
 
         array_view drop_last(size_type count) const
         {
-            return {data_, size_ - count};
+            return subview(0, size() - count);
         }
 
       private:
