@@ -124,6 +124,18 @@ namespace ext
         size_type size_ = 0;
     };
 
+    template<typename T>
+    bool operator==(array_view<T> const& lhs, array_view<T> const& rhs)
+    {
+        return lhs.data() == rhs.data() && lhs.size() == rhs.size();
+    }
+
+    template<typename T>
+    bool operator!=(array_view<T> const& lhs, array_view<T> const& rhs)
+    {
+        return !(lhs == rhs);
+    }
+
     namespace detail
     {
         template<typename T>

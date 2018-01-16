@@ -299,3 +299,15 @@ TEST_CASE("two array_views can be swapped")
     CHECK(view2.data() == vector1.data());
     CHECK(view2.size() == vector1.size());
 }
+
+TEST_CASE("two array_views can be compared for shallow equality")
+{
+    std::vector<int> vector1 = {0, 1, 2, 3};
+    std::vector<int> vector2 = {0, 1, 2, 3};
+
+    ext::array_view<int> const view1 = ext::view(vector1);
+    ext::array_view<int> const view2 = ext::view(vector2);
+
+    CHECK(view1 == view1);
+    CHECK(view1 != view2);
+}
