@@ -112,7 +112,7 @@ namespace ext
     };
 
     template<typename T, typename Allocator>
-    array_view<T> view(std::vector<T, Allocator>& vec)
+    array_view<T> view(std::vector<T, Allocator>& vec) noexcept
     {
         return array_view<T>{vec.data(), vec.size()};
     }

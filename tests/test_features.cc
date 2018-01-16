@@ -107,6 +107,11 @@ TEST_CASE("array_view can access std::vector with custom allocator")
     {
         ext::array_view<int> view = ext::view(vector);
     }
+
+    SECTION("won't throw")
+    {
+        CHECK(noexcept(ext::view(vector)));
+    }
 }
 
 TEST_CASE("array_view is default constructible")
