@@ -43,6 +43,16 @@ namespace ext
         {
         }
 
+        T& front()
+        {
+            return data_[0];
+        }
+
+        T& back()
+        {
+            return data_[size_ - 1];
+        }
+
         T& operator[](std::size_t idx)
         {
             return data_[idx];

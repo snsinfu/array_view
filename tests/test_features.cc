@@ -21,4 +21,10 @@ TEST_CASE("array_view can access vector elements")
         view[0] = 100;
         CHECK(vector[0] == 100);
     }
+
+    SECTION("accessing front and back elements")
+    {
+        CHECK(view.front() == 0);
+        CHECK(view.back() == 3);
+    }
 }
