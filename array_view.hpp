@@ -72,6 +72,16 @@ namespace ext
             return data_[idx];
         }
 
+        T* begin()
+        {
+            return data_;
+        }
+
+        T* end()
+        {
+            return data_ + size_;
+        }
+
       private:
         pointer data_;
         size_type size_;

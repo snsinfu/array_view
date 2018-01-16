@@ -37,4 +37,12 @@ TEST_CASE("array_view can access vector elements")
     {
         CHECK(view.size() == vector.size());
     }
+
+    SECTION("iterating with range interface")
+    {
+        for (int& elm : view) {
+            elm += 10;
+        }
+        CHECK(vector == std::vector<int>{10, 11, 12, 13});
+    }
 }
