@@ -53,7 +53,7 @@ namespace ext
         {
         }
 
-        constexpr size_type size() const
+        constexpr size_type size() const noexcept
         {
             return size_;
         }

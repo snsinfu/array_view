@@ -140,7 +140,16 @@ TEST_CASE("array_view provides element count")
 {
     std::vector<int> vector = {0, 1, 2, 3};
     ext::array_view<int> const view = ext::view(vector);
-    CHECK(view.size() == vector.size());
+
+    SECTION("fact check")
+    {
+        CHECK(view.size() == vector.size());
+    }
+
+    SECTION("must succeed")
+    {
+        CHECK(noexcept(view.size()));
+    }
 }
 
 TEST_CASE("array_view supports range-based for loop")
