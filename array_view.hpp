@@ -105,7 +105,7 @@ namespace ext
             return reverse_iterator{begin()};
         }
 
-        array_view<T const> as_const() const
+        array_view<T const> as_const() const noexcept
         {
             return {data_, size_};
         }
