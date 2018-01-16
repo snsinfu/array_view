@@ -117,9 +117,9 @@ namespace ext
             other = this_copy;
         }
 
-        array_view subview(size_type offset, size_type size) const
+        array_view subview(size_type offset, size_type count) const
         {
-            return {data_ + offset, size};
+            return {data_ + offset, count};
         }
 
         array_view subview(size_type offset) const
@@ -127,14 +127,14 @@ namespace ext
             return subview(offset, size() - offset);
         }
 
-        array_view first(size_type size) const
+        array_view first(size_type count) const
         {
-            return subview(0, size);
+            return subview(0, count);
         }
 
-        array_view last(size_type size) const
+        array_view last(size_type count) const
         {
-            return subview(this->size() - size, size);
+            return subview(size() - count, count);
         }
 
         array_view drop_first(size_type count) const
