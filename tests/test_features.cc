@@ -120,3 +120,11 @@ TEST_CASE("array_view is default constructible")
     CHECK(view.data() == nullptr);
     CHECK(view.size() == 0);
 }
+
+TEST_CASE("array_view supports constexpr for literal strings")
+{
+    SECTION("constexpr view")
+    {
+        constexpr ext::array_view<char const> view = ext::view("abc");
+    }
+}

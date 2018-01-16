@@ -47,7 +47,7 @@ namespace ext
 
         array_view() = default;
 
-        array_view(pointer data, size_type size)
+        constexpr array_view(pointer data, size_type size)
             : data_{data}
             , size_{size}
         {
@@ -118,7 +118,7 @@ namespace ext
     }
 
     template<typename T, std::size_t N>
-    array_view<T> view(T(& arr)[N]) noexcept
+    constexpr array_view<T> view(T(& arr)[N]) noexcept
     {
         return array_view<T>{arr, N};
     }
