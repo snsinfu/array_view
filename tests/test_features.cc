@@ -355,3 +355,11 @@ TEST_CASE("array_view can be sliced after prefix")
     ext::array_view<int> const tail = view.drop_first(2);
     CHECK(tail == view.subview(2, view.size() - 2));
 }
+
+TEST_CASE("array_view can be sliced before suffix")
+{
+    std::vector<int> vector = {0, 1, 2, 3};
+    ext::array_view<int> const view = ext::view(vector);
+    ext::array_view<int> const init = view.drop_last(2);
+    CHECK(init == view.subview(0, view.size() - 2));
+}

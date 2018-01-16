@@ -144,6 +144,11 @@ namespace ext
             return {data_ + count, size_ - count};
         }
 
+        array_view drop_last(size_type count) const
+        {
+            return {data_, size_ - count};
+        }
+
       private:
         pointer data_ = nullptr;
         size_type size_ = 0;
