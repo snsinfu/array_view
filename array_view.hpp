@@ -65,12 +65,12 @@ namespace ext
 
         constexpr reference front() const
         {
-            return data()[0];
+            return operator[](0);
         }
 
         constexpr reference back() const
         {
-            return data()[size() - 1];
+            return operator[](size() - 1);
         }
 
         constexpr reference operator[](size_type idx) const
