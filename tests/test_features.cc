@@ -166,14 +166,23 @@ TEST_CASE("array_view provides reverse iterators")
     std::vector<int> vector = {0, 1, 2, 3};
     ext::array_view<int> const view = ext::view(vector);
 
-    auto const beg = view.rbegin();
-    auto const end = view.rend();
+    SECTION("fact check")
+    {
+        auto const beg = view.rbegin();
+        auto const end = view.rend();
 
-    auto it = beg;
-    CHECK(*it == vector.back());
+        auto it = beg;
+        CHECK(*it == vector.back());
 
-    it += view.end() - view.begin();
-    CHECK(it == end);
+        it += view.end() - view.begin();
+        CHECK(it == end);
+    }
+
+    SECTION("must succeed")
+    {
+        CHECK(noexcept(view.rbegin()));
+        CHECK(noexcept(view.rend()));
+    }
 }
 
 TEST_CASE("array_view supports constexpr for literal strings")

@@ -95,12 +95,12 @@ namespace ext
             return data_ + size_;
         }
 
-        reverse_iterator rbegin() const
+        reverse_iterator rbegin() const noexcept
         {
             return reverse_iterator{end()};
         }
 
-        reverse_iterator rend() const
+        reverse_iterator rend() const noexcept
         {
             return reverse_iterator{begin()};
         }
