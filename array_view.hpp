@@ -26,12 +26,10 @@
 #ifndef SNSINFU_EXT_ARRAY_VIEW_HPP
 #define SNSINFU_EXT_ARRAY_VIEW_HPP
 
-#include <array>
 #include <cstddef>
 #include <iterator>
-#include <string>
+#include <stdexcept>
 #include <utility>
-#include <vector>
 
 namespace snsinfu
 {
