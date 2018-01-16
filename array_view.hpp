@@ -63,22 +63,22 @@ namespace ext
             return data_;
         }
 
-        reference front() const
+        constexpr reference front() const
         {
             return data_[0];
         }
 
-        reference back() const
+        constexpr reference back() const
         {
             return data_[size_ - 1];
         }
 
-        reference operator[](size_type idx) const
+        constexpr reference operator[](size_type idx) const
         {
             return data_[idx];
         }
 
-        reference at(size_type idx) const
+        constexpr reference at(size_type idx) const
         {
             if (idx >= size_) {
                 throw std::out_of_range("array_view out-of-bounds access");
