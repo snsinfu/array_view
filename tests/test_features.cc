@@ -27,4 +27,9 @@ TEST_CASE("array_view can access vector elements")
         CHECK(view.front() == 0);
         CHECK(view.back() == 3);
     }
+
+    SECTION("getting raw pointer")
+    {
+        CHECK(view.data() == vector.data());
+    }
 }

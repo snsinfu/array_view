@@ -45,6 +45,11 @@ namespace ext
         {
         }
 
+        T* data()
+        {
+            return data_;
+        }
+
         reference front()
         {
             return data_[0];
