@@ -53,7 +53,7 @@ namespace ext
         {
         }
 
-        bool empty() const
+        constexpr bool empty() const
         {
             return size() == 0;
         }

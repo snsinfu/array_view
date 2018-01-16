@@ -275,6 +275,12 @@ TEST_CASE("array_view supports constexpr for literal strings")
         constexpr ext::array_view<char const> tail = view.drop_first(2);
         constexpr ext::array_view<char const> init = view.drop_last(2);
     }
+
+    SECTION("constexpr emptiness check")
+    {
+        constexpr ext::array_view<char const> view = ext::view("abc");
+        constexpr bool empty = view.empty();
+    }
 }
 
 TEST_CASE("array_view can be transformed to const view")
