@@ -8,7 +8,7 @@ namespace ext = snsinfu::ext;
 TEST_CASE("array_view can access vector elements")
 {
     std::vector<int> vector = {0, 1, 2, 3};
-    ext::array_view<int> view = ext::view(vector);
+    ext::array_view<int> const view = ext::view(vector);
 
     SECTION("reading elements via indices")
     {

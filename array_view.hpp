@@ -50,32 +50,32 @@ namespace ext
         {
         }
 
-        size_type size()
+        size_type size() const
         {
             return size_;
         }
 
-        pointer data()
+        pointer data() const
         {
             return data_;
         }
 
-        reference front()
+        reference front() const
         {
             return data_[0];
         }
 
-        reference back()
+        reference back() const
         {
             return data_[size_ - 1];
         }
 
-        reference operator[](size_type idx)
+        reference operator[](size_type idx) const
         {
             return data_[idx];
         }
 
-        reference at(size_type idx)
+        reference at(size_type idx) const
         {
             if (idx >= size_) {
                 throw std::out_of_range("array_view out-of-bounds access");
@@ -83,22 +83,22 @@ namespace ext
             return operator[](idx);
         }
 
-        iterator begin()
+        iterator begin() const
         {
             return data_;
         }
 
-        iterator end()
+        iterator end() const
         {
             return data_ + size_;
         }
 
-        reverse_iterator rbegin()
+        reverse_iterator rbegin() const
         {
             return reverse_iterator{end()};
         }
 
-        reverse_iterator rend()
+        reverse_iterator rend() const
         {
             return reverse_iterator{begin()};
         }
