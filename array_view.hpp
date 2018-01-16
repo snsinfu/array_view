@@ -58,7 +58,7 @@ namespace ext
             return size_;
         }
 
-        constexpr pointer data() const
+        constexpr pointer data() const noexcept
         {
             return data_;
         }

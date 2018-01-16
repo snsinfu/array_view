@@ -124,7 +124,16 @@ TEST_CASE("array_view provides raw pointer")
 {
     std::vector<int> vector = {0, 1, 2, 3};
     ext::array_view<int> const view = ext::view(vector);
-    CHECK(view.data() == vector.data());
+
+    SECTION("fact check")
+    {
+        CHECK(view.data() == vector.data());
+    }
+
+    SECTION("must succeed")
+    {
+        CHECK(noexcept(view.data()));
+    }
 }
 
 TEST_CASE("array_view provides element count")
