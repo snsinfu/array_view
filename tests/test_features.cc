@@ -102,6 +102,23 @@ TEST_CASE("array_view can access raw memory range")
     }
 }
 
+TEST_CASE("array_view can access raw memory range (begin-end formalism)")
+{
+    int array[] = {0, 1, 2, 3};
+    int* const begin = array;
+    int* const end = array + 4;
+
+    SECTION("smoke test")
+    {
+        ext::array_view<int> view = ext::view(begin, end);
+    }
+
+    SECTION("may fail")
+    {
+        CHECK_FALSE(noexcept(ext::view(begin, end)));
+    }
+}
+
 TEST_CASE("array_view is default constructible")
 {
     ext::array_view<int> view;

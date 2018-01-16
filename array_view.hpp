@@ -221,6 +221,12 @@ namespace ext
     {
         return {ptr, size};
     }
+
+    template<typename T>
+    constexpr array_view<T> view(T* begin, T* end)
+    {
+        return {begin, static_cast<std::size_t>(end - begin)};
+    }
 } // ext
 } // snsinfu
 
