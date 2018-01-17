@@ -117,6 +117,11 @@ namespace ext
             return {data(), size()};
         }
 
+        operator array_view<T const>() const noexcept
+        {
+            return as_const();
+        }
+
         void swap(array_view& other) noexcept
         {
             auto const this_copy = *this;

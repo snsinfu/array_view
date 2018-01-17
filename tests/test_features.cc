@@ -346,6 +346,24 @@ TEST_CASE("array_view can be transformed to const view")
     }
 }
 
+TEST_CASE("array_view can be implicitly converted to const view")
+{
+    std::vector<int> vector = {0, 1, 2, 3};
+    ext::array_view<int> const view = ext::view(vector);
+
+    SECTION("fact check")
+    {
+        ext::array_view<int const> const const_view = view;
+        CHECK(const_view.data() == view.data());
+        CHECK(const_view.size() == view.size());
+    }
+
+    SECTION("must succeed")
+    {
+        CHECK(noexcept(static_cast<ext::array_view<int const>>(view)));
+    }
+}
+
 TEST_CASE("two array_views can be swapped")
 {
     std::vector<int> vector1 = {0, 1, 2, 3};
