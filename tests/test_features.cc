@@ -389,8 +389,17 @@ TEST_CASE("two array_views can be compared for shallow equality")
     ext::array_view<int> const view1 = ext::view(vector1);
     ext::array_view<int> const view2 = ext::view(vector2);
 
-    CHECK(view1 == view1);
-    CHECK(view1 != view2);
+    SECTION("fact check")
+    {
+        CHECK(view1 == view1);
+        CHECK(view1 != view2);
+    }
+
+    SECTION("must succeed")
+    {
+        CHECK(noexcept(view1 == view1));
+        CHECK(noexcept(view1 != view2));
+    }
 }
 
 TEST_CASE("const and mutable array_views can be compared")
@@ -400,11 +409,21 @@ TEST_CASE("const and mutable array_views can be compared")
     ext::array_view<int> const mutable_view = ext::view(vector);
     ext::array_view<int const> const const_view = ext::view(vector);
 
-    CHECK(mutable_view == const_view);
-    CHECK(const_view == mutable_view);
+    SECTION("fact check")
+    {
+        CHECK(mutable_view == const_view);
+        CHECK(const_view == mutable_view);
+        CHECK_FALSE(mutable_view != const_view);
+        CHECK_FALSE(const_view != mutable_view);
+    }
 
-    CHECK_FALSE(mutable_view != const_view);
-    CHECK_FALSE(const_view != mutable_view);
+    SECTION("must succeed")
+    {
+        CHECK(noexcept(mutable_view == const_view));
+        CHECK(noexcept(const_view == mutable_view));
+        CHECK(noexcept(mutable_view != const_view));
+        CHECK(noexcept(const_view != mutable_view));
+    }
 }
 
 TEST_CASE("array_view can be sliced")
