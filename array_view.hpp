@@ -171,9 +171,33 @@ namespace ext
     }
 
     template<typename T>
+    bool operator==(array_view<T const> const& lhs, array_view<T> const& rhs)
+    {
+        return lhs == rhs.as_const();
+    }
+
+    template<typename T>
+    bool operator==(array_view<T> const& lhs, array_view<T const> const& rhs)
+    {
+        return lhs.as_const() == rhs;
+    }
+
+    template<typename T>
     bool operator!=(array_view<T> const& lhs, array_view<T> const& rhs)
     {
         return !(lhs == rhs);
+    }
+
+    template<typename T>
+    bool operator!=(array_view<T const> const& lhs, array_view<T> const& rhs)
+    {
+        return lhs != rhs.as_const();
+    }
+
+    template<typename T>
+    bool operator!=(array_view<T> const& lhs, array_view<T const> const& rhs)
+    {
+        return lhs.as_const() != rhs;
     }
 
     namespace detail

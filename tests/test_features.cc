@@ -393,6 +393,20 @@ TEST_CASE("two array_views can be compared for shallow equality")
     CHECK(view1 != view2);
 }
 
+TEST_CASE("const and mutable array_views can be compared")
+{
+    std::vector<int> vector = {0, 1, 2, 3};
+
+    ext::array_view<int> const mutable_view = ext::view(vector);
+    ext::array_view<int const> const const_view = ext::view(vector);
+
+    CHECK(mutable_view == const_view);
+    CHECK(const_view == mutable_view);
+
+    CHECK_FALSE(mutable_view != const_view);
+    CHECK_FALSE(const_view != mutable_view);
+}
+
 TEST_CASE("array_view can be sliced")
 {
     std::vector<int> vector = {0, 1, 2, 3};
