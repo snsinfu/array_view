@@ -46,6 +46,7 @@ namespace ext
         using size_type = std::size_t;
         using iterator = T*;
         using reverse_iterator = std::reverse_iterator<iterator>;
+        using const_array_view = array_view<T const>;
 
         array_view() = default;
 
@@ -112,12 +113,12 @@ namespace ext
             return reverse_iterator{begin()};
         }
 
-        constexpr array_view<T const> as_const() const noexcept
+        constexpr const_array_view as_const() const noexcept
         {
             return {data(), size()};
         }
 
-        operator array_view<T const>() const noexcept
+        operator const_array_view() const noexcept
         {
             return as_const();
         }
