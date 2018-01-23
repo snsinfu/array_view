@@ -23,8 +23,8 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-#ifndef SNSINFU_EXT_ARRAY_VIEW_HPP
-#define SNSINFU_EXT_ARRAY_VIEW_HPP
+#ifndef EXT_ARRAY_VIEW_HPP
+#define EXT_ARRAY_VIEW_HPP
 
 #include <cstddef> // size_t
 #include <iterator> // reverse_iterator
@@ -32,8 +32,6 @@
 #include <type_traits> // remove_cv
 #include <utility> // declval
 
-namespace snsinfu
-{
 namespace ext
 {
     template<typename T>
@@ -166,37 +164,43 @@ namespace ext
     };
 
     template<typename T>
-    bool operator==(array_view<T> const& lhs, array_view<T> const& rhs) noexcept
+    bool operator==(
+        array_view<T> const& lhs, array_view<T> const& rhs) noexcept
     {
         return lhs.data() == rhs.data() && lhs.size() == rhs.size();
     }
 
     template<typename T>
-    bool operator==(array_view<T const> const& lhs, array_view<T> const& rhs) noexcept
+    bool operator==(
+        array_view<T const> const& lhs, array_view<T> const& rhs) noexcept
     {
         return lhs == rhs.as_const();
     }
 
     template<typename T>
-    bool operator==(array_view<T> const& lhs, array_view<T const> const& rhs) noexcept
+    bool operator==(
+        array_view<T> const& lhs, array_view<T const> const& rhs) noexcept
     {
         return lhs.as_const() == rhs;
     }
 
     template<typename T>
-    bool operator!=(array_view<T> const& lhs, array_view<T> const& rhs) noexcept
+    bool operator!=(
+        array_view<T> const& lhs, array_view<T> const& rhs) noexcept
     {
         return !(lhs == rhs);
     }
 
     template<typename T>
-    bool operator!=(array_view<T const> const& lhs, array_view<T> const& rhs) noexcept
+    bool operator!=(
+        array_view<T const> const& lhs, array_view<T> const& rhs) noexcept
     {
         return lhs != rhs.as_const();
     }
 
     template<typename T>
-    bool operator!=(array_view<T> const& lhs, array_view<T const> const& rhs) noexcept
+    bool operator!=(
+        array_view<T> const& lhs, array_view<T const> const& rhs) noexcept
     {
         return lhs.as_const() != rhs;
     }
@@ -260,6 +264,5 @@ namespace ext
         return {begin, static_cast<std::size_t>(end - begin)};
     }
 } // ext
-} // snsinfu
 
 #endif

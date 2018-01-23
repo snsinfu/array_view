@@ -4,5 +4,5 @@
 
 TEST_CASE("array_view<int> is defined")
 {
-    CHECK(sizeof(snsinfu::ext::array_view<int>) > 0);
+    CHECK(sizeof(ext::array_view<int>) > 0);
 }

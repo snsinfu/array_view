@@ -4,8 +4,6 @@
 #include <array_view.hpp>
 #include <catch.hpp>
 
-namespace ext = snsinfu::ext;
-
 TEST_CASE("using array_view in a virtual interface")
 {
     class reducer
