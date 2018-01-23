@@ -195,14 +195,14 @@ namespace ext
     bool operator!=(
         array_view<T const> const& lhs, array_view<T> const& rhs) noexcept
     {
-        return lhs != rhs.as_const();
+        return !(lhs == rhs);
     }
 
     template<typename T>
     bool operator!=(
         array_view<T> const& lhs, array_view<T const> const& rhs) noexcept
     {
-        return lhs.as_const() != rhs;
+        return !(lhs == rhs);
     }
 
     namespace detail
