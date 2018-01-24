@@ -1,0 +1,15 @@
+PROJECT_NAME           = array_view
+OUTPUT_DIRECTORY       = doc
+OUTPUT_LANGUAGE        = English
+
+JAVADOC_AUTOBRIEF      = YES
+ALWAYS_DETAILED_SEC    = YES
+BUILTIN_STL_SUPPORT    = YES
+
+FILE_PATTERNS          = *.hpp
+CLANG_ASSISTED_PARSING = YES
+CLANG_OPTIONS          = -std=c++14
+INCLUDE_PATH           =
+
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO

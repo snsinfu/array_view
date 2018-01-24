@@ -32,58 +32,91 @@
 #include <type_traits> // remove_cv
 #include <utility> // declval
 
+/// Additional vocabulary to the standard.
 namespace ext
 {
+    /// Lightweight view of an array.
     template<typename T>
     class array_view
     {
       public:
+        /// The non-qualified type of the elements.
         using value_type = typename std::remove_cv<T>::type;
+
+        /// The type of a pointer to an element.
         using pointer = T*;
+
+        /// The type of a reference to an element.
         using reference = T&;
+
+        /// The type of size and index values.
         using size_type = std::size_t;
+
+        /// The type of iterators. Guaranteed to be a random access iterator.
+        /// Currently implemented as an alias of T* but this may change in the
+        /// future.
         using iterator = T*;
+
+        /// The type of reverse iterators. Guaranteed to be a random access
+        /// iterator.
         using reverse_iterator = std::reverse_iterator<iterator>;
+
+        /// The type of read-only array_view with the same value_type. This is
+        /// the same as array_view<T> if T is already const qualified.
         using const_array_view = array_view<T const>;
 
+        /// The default constructor creates an empty view.
         array_view() = default;
 
+        /// This constructor creates a view of region [data, data + size).
         constexpr array_view(pointer data, size_type size)
             : data_{data}
             , size_{size}
         {
         }
 
+        /// Tests if the view is empty.
         constexpr bool empty() const noexcept
         {
             return size() == 0;
         }
 
+        /// Returns the number of elements.
         constexpr size_type size() const noexcept
         {
             return size_;
         }
 
+        /// Returns a pointer to the first element. The pointer may or may not
+        /// be null if the view is empty.
         constexpr pointer data() const noexcept
         {
             return data_;
         }
 
+        /// Returns a reference to the first element. The behavior is
+        /// undefined if the view is empty.
         constexpr reference front() const
         {
             return operator[](0);
         }
 
+        /// Returns a reference to the last element. The behavior is undefined
+        /// if the view is empty.
         constexpr reference back() const
         {
             return operator[](size() - 1);
         }
 
+        /// Returns a reference to the idx-th element. The behavior is
+        /// undefined if the index is out of bounds.
         constexpr reference operator[](size_type idx) const
         {
             return data()[idx];
         }
 
+        /// Returns a reference to the idx-th element. Throws
+        /// std::out_of_range if the index is out of bounds.
         constexpr reference at(size_type idx) const
         {
             return idx < size() ? operator[](idx)
@@ -91,36 +124,43 @@ namespace ext
                                       "array_view access out-of-bounds");
         }
 
+        /// Returns an iterator to the beginning.
         constexpr iterator begin() const noexcept
         {
             return data();
         }
 
+        /// Returns an iterator to the end.
         constexpr iterator end() const noexcept
         {
             return data() + size();
         }
 
+        /// Returns a reverse iterator to the reverse beginning.
         reverse_iterator rbegin() const noexcept
         {
             return reverse_iterator{end()};
         }
 
+        /// Returns a reverse iterator to the reverse end.
         reverse_iterator rend() const noexcept
         {
             return reverse_iterator{begin()};
         }
 
+        /// Returns a read-only view of the same array.
         constexpr const_array_view as_const() const noexcept
         {
             return {data(), size()};
         }
 
+        /// A view is always implicitly convertible to a read-only view.
         operator const_array_view() const noexcept
         {
             return as_const();
         }
 
+        /// Swaps the viewed array.
         void swap(array_view& other) noexcept
         {
             auto const this_copy = *this;
@@ -128,31 +168,37 @@ namespace ext
             other = this_copy;
         }
 
+        /// Returns a view of the subarray with given region.
         constexpr array_view subview(size_type offset, size_type count) const
         {
             return {data() + offset, count};
         }
 
+        /// Returns a view of a subarray starts at offset.
         constexpr array_view subview(size_type offset) const
         {
             return subview(offset, size() - offset);
         }
 
+        /// Returns a view of the first count elements.
         constexpr array_view first(size_type count) const
         {
             return subview(0, count);
         }
 
+        /// Returns a view of the last count elements.
         constexpr array_view last(size_type count) const
         {
             return subview(size() - count, count);
         }
 
+        /// Returns a view of the array except the first count elements.
         constexpr array_view drop_first(size_type count) const
         {
             return subview(count);
         }
 
+        /// Returns a view of the array except the last count elements.
         constexpr array_view drop_last(size_type count) const
         {
             return subview(0, size() - count);
@@ -163,6 +209,7 @@ namespace ext
         size_type size_ = 0;
     };
 
+    /// Compares views for shallow equality.
     template<typename T>
     bool operator==(
         array_view<T> const& lhs, array_view<T> const& rhs) noexcept
@@ -184,6 +231,7 @@ namespace ext
         return lhs.as_const() == rhs;
     }
 
+    /// Compares views for shallow inequality.
     template<typename T>
     bool operator!=(
         array_view<T> const& lhs, array_view<T> const& rhs) noexcept
@@ -207,6 +255,7 @@ namespace ext
 
     namespace detail
     {
+        // Removes top-level pointer. SFINAE friendly.
         template<typename T>
         struct deref;
 
@@ -219,6 +268,10 @@ namespace ext
         template<typename T>
         using deref_t = typename deref<T>::type;
 
+        // Returns a pointer to the first element of a contiguous container.
+        //
+        // XXX: Here almost no concept checks are done, so this may be broken
+        //      for non-STL types and can cause nasty run-time memory error!
         template<typename Cont>
         constexpr auto data(Cont& cont) noexcept -> decltype(cont.data())
         {
@@ -231,6 +284,7 @@ namespace ext
             return arr;
         }
 
+        // Returns the number of elements in a container.
         template<typename Cont>
         constexpr auto size(Cont& cont) noexcept -> decltype(cont.size())
         {
@@ -244,6 +298,7 @@ namespace ext
         }
     }
 
+    /// Creates an array_view of the elements of a contiguous container.
     template<typename Cont,
         typename P = decltype(detail::data(std::declval<Cont&>())),
         typename S = decltype(detail::size(std::declval<Cont&>()))>
@@ -252,12 +307,14 @@ namespace ext
         return {detail::data(cont), detail::size(cont)};
     }
 
+    /// Creates an array_view of the region [ptr, ptr + size).
     template<typename T>
     constexpr array_view<T> view(T* ptr, std::size_t size)
     {
         return {ptr, size};
     }
 
+    /// Creates an array_view of the region [begin, end).
     template<typename T>
     constexpr array_view<T> view(T* begin, T* end)
     {
