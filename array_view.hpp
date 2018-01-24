@@ -66,7 +66,7 @@ namespace ext
         using const_array_view = array_view<T const>;
 
         /// The default constructor creates an empty view.
-        array_view() = default;
+        constexpr array_view() noexcept = default;
 
         /// This constructor creates a view of region [data, data + size).
         constexpr array_view(pointer data, size_type size)
