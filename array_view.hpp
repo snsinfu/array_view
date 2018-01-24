@@ -318,6 +318,24 @@ namespace ext
     }
 
     /// Creates an array_view of the elements of a contiguous container.
+    ///
+    /// For an array the pointer to the first element and the compile-time
+    /// length of the array are used to create a view. Otherwise `cont.data()`
+    /// is assumed to be the beginning of the memory region owned by the
+    /// container and `cont.size()` is assumed to be the number of elements in
+    /// that memory region. The behavior is undefined if these assumptions are
+    /// not met.
+    ///
+    /// @param cont     A contiguous container or an array.
+    ///
+    /// @return         A view of all the elements in the given container.
+    ///
+    /// @par Rationale
+    /// Container-to-array_view conversion is unsafe. An array_view can easily
+    /// outlive the viewed container and cause a dangling pointer bug. Such a
+    /// conversion should not be overlooked in the source code. Thus, this
+    /// library disallows implicit conversion and forces explicit conversion
+    /// via this function.
     template<typename Cont,
         typename P = decltype(detail::data(std::declval<Cont&>())),
         typename S = decltype(detail::size(std::declval<Cont&>()))>
@@ -327,6 +345,8 @@ namespace ext
     }
 
     /// Creates an array_view of the region [ptr, ptr + size).
+    ///
+    /// The behavior is undefined if the memory region is not valid.
     template<typename T>
     constexpr array_view<T> view(T* ptr, std::size_t size)
     {
@@ -334,6 +354,8 @@ namespace ext
     }
 
     /// Creates an array_view of the region [begin, end).
+    ///
+    /// The behavior is undefined if the memory region is not valid.
     template<typename T>
     constexpr array_view<T> view(T* begin, T* end)
     {
