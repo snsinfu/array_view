@@ -63,7 +63,9 @@ operations such as `subview(i, n)`, `first(n)` and `drop_last(n)`.
 
 ### Doxygen reference
 
-https://snsinfu.github.io/array_view
+- [Main page](https://snsinfu.github.io/array_view/)
+- [ext](https://snsinfu.github.io/array_view/namespaceext.html)
+- [ext::array_view](https://snsinfu.github.io/array_view/classext_1_1array__view.html)
 
 ## License
 
