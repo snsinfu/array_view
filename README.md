@@ -3,8 +3,23 @@ array\_view
 
 Single header-only library of non-owning array view for C++11 and later.
 
+- [Introduction](#introduction)
 - [Usage](#usage)
 - [License](#license)
+
+## Introduction
+
+`array_view` is a random-access range abstraction of a pointer-length pair seen
+in C APIs, like this:
+
+    void compute_something(double* ptr, size_t len);
+
+`array_view` is similar to [GSL][gsl]'s `span`. Notable differences are:
+
+- `array_view` disallows implicit conversion from contiguous containers
+- `array_view` uses `size_t` for size and index
+
+[gsl]: https://github.com/Microsoft/GSL
 
 ## Usage
 
