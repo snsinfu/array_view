@@ -1,5 +1,5 @@
-array\_view.hpp
-===============
+array\_view
+===========
 
 Single header-only library of non-owning array view for C++11 and later.
 
