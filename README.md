@@ -37,7 +37,7 @@ in C APIs, like this:
 
 Just copy [array\_view.hpp][header] to your include directory.
 
-[header]: https://github.com/snsinfu/array_view.hpp/raw/master/array_view.hpp
+[header]: https://raw.githubusercontent.com/snsinfu/array_view/master/array_view.hpp
 
 ### Example
 
