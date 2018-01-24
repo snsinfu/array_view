@@ -1,5 +1,5 @@
 PROJECT_NAME           = array_view
-OUTPUT_DIRECTORY       = doc
+OUTPUT_DIRECTORY       = docs
 OUTPUT_LANGUAGE        = English
 
 JAVADOC_AUTOBRIEF      = YES
@@ -14,3 +14,11 @@ INCLUDE_PATH           =
 
 GENERATE_HTML          = YES
 GENERATE_LATEX         = NO
+HTML_OUTPUT            = .
+HTML_HEADER            = third_party/doxygen-bootstrapped/example-site/header.html
+HTML_FOOTER            = third_party/doxygen-bootstrapped/example-site/footer.html
+HTML_EXTRA_STYLESHEET  = third_party/doxygen-bootstrapped/customdoxygen.css
+HTML_EXTRA_FILES       = third_party/doxygen-bootstrapped/doxy-boot.js
+
+INPUT                  = README.md array_view.hpp
+USE_MDFILE_AS_MAINPAGE = README.md
