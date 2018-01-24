@@ -2,7 +2,7 @@ array\_view
 ===========
 
 ![C++11][cxx-badge]
-[![Boost License][license-badge]](LICENSE.txt)
+[![Boost License][license-badge]][license-url]
 [![Build Status][travis-badge]][travis-url]
 
 Single header-only library of non-owning array view for C++11 and later.
@@ -13,6 +13,7 @@ Single header-only library of non-owning array view for C++11 and later.
 
 [cxx-badge]: https://img.shields.io/badge/C%2B%2B-11-orange.svg
 [license-badge]: http://img.shields.io/badge/license-Boost-blue.svg
+[license-url]: https://github.com/snsinfu/array_view/blob/master/LICENSE.txt
 [travis-badge]: https://travis-ci.org/snsinfu/array_view.svg?branch=master
 [travis-url]: https://travis-ci.org/snsinfu/array_view
 
