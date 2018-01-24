@@ -61,6 +61,10 @@ operations such as `subview(i, n)`, `first(n)` and `drop_last(n)`.
         // Prints: 1 2 3
     }
 
+### Doxygen reference
+
+https://snsinfu.github.io/array_view
+
 ## License
 
 Boost Software License, Version 1.0.
