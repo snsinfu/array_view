@@ -33,6 +33,8 @@ in C APIs, like this:
 
 ## Usage
 
+### Installation
+
 Just copy [array\_view.hpp][header] to your include directory.
 
 [header]: https://github.com/snsinfu/array_view.hpp/raw/master/array_view.hpp
