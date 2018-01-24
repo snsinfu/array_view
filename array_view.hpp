@@ -210,6 +210,19 @@ namespace ext
     };
 
     /// Compares views for shallow equality.
+    ///
+    /// Two views are equal if and only if the viewed memory region is exactly
+    /// the same. Empty views are the same if the beginning pointers match;
+    /// arbitrary empty views are not necessarily the same. Still,
+    /// default-constructed views are guaranteed to be the same.
+    ///
+    /// This is a *shallow* comprison. Use `std::lexicographic_compare`
+    /// algorithm for deep element-wise comparisons.
+    ///
+    /// @return  true if lhs and rhs are the same view, false otherwise.
+    //
+    /// @par Complexity
+    /// O(1)
     template<typename T>
     bool operator==(
         array_view<T> const& lhs, array_view<T> const& rhs) noexcept
@@ -217,6 +230,7 @@ namespace ext
         return lhs.data() == rhs.data() && lhs.size() == rhs.size();
     }
 
+    /// Supports const v.s. non-const comparisons.
     template<typename T>
     bool operator==(
         array_view<T const> const& lhs, array_view<T> const& rhs) noexcept
@@ -224,6 +238,7 @@ namespace ext
         return lhs == rhs.as_const();
     }
 
+    /// Supports const v.s. non-const comparisons.
     template<typename T>
     bool operator==(
         array_view<T> const& lhs, array_view<T const> const& rhs) noexcept
@@ -232,6 +247,8 @@ namespace ext
     }
 
     /// Compares views for shallow inequality.
+    ///
+    /// This is equivalent to `!(lhs == rhs)`.
     template<typename T>
     bool operator!=(
         array_view<T> const& lhs, array_view<T> const& rhs) noexcept
@@ -239,6 +256,7 @@ namespace ext
         return !(lhs == rhs);
     }
 
+    /// Supports const v.s. non-const comparisons.
     template<typename T>
     bool operator!=(
         array_view<T const> const& lhs, array_view<T> const& rhs) noexcept
@@ -246,6 +264,7 @@ namespace ext
         return !(lhs == rhs);
     }
 
+    /// Supports const v.s. non-const comparisons.
     template<typename T>
     bool operator!=(
         array_view<T> const& lhs, array_view<T const> const& rhs) noexcept
