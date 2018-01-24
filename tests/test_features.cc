@@ -13,6 +13,7 @@ TEST_CASE("array_view can access vector elements")
     SECTION("smoke test")
     {
         ext::array_view<int> view = ext::view(vector);
+        static_cast<void>(view);
     }
 
     SECTION("won't throw")
@@ -28,6 +29,7 @@ TEST_CASE("array_view can access built-in arrays")
     SECTION("smoke test")
     {
         ext::array_view<int> view = ext::view(array);
+        static_cast<void>(view);
     }
 
     SECTION("won't throw")
@@ -43,6 +45,7 @@ TEST_CASE("array_view can access std::array")
     SECTION("smoke test")
     {
         ext::array_view<int> view = ext::view(array);
+        static_cast<void>(view);
     }
 
     SECTION("won't throw")
@@ -61,6 +64,7 @@ TEST_CASE("array_view can access std::vector with custom allocator")
     SECTION("smoke test")
     {
         ext::array_view<int> view = ext::view(vector);
+        static_cast<void>(view);
     }
 
     SECTION("won't throw")
@@ -76,6 +80,7 @@ TEST_CASE("array_view can access std::string")
     SECTION("smoke test")
     {
         ext::array_view<char const> view = ext::view(string);
+        static_cast<void>(view);
     }
 
     SECTION("won't throw")
@@ -93,6 +98,7 @@ TEST_CASE("array_view can access raw memory range")
     SECTION("smoke test")
     {
         ext::array_view<int> view = ext::view(ptr, size);
+        static_cast<void>(view);
     }
 
     SECTION("may fail")
@@ -110,6 +116,7 @@ TEST_CASE("array_view can access raw memory range (begin-end formalism)")
     SECTION("smoke test")
     {
         ext::array_view<int> view = ext::view(begin, end);
+        static_cast<void>(view);
     }
 
     SECTION("may fail")
@@ -263,18 +270,21 @@ TEST_CASE("array_view supports constexpr for literal strings")
     SECTION("constexpr view")
     {
         constexpr ext::array_view<char const> view = ext::view("abc");
+        static_cast<void>(view);
     }
 
     SECTION("constexpr view (ptr/size memory)")
     {
         constexpr char const* ptr = "abc";
         constexpr ext::array_view<char const> view = ext::view(ptr, 3);
+        static_cast<void>(view);
     }
 
     SECTION("constexpr view (begin/end memory)")
     {
         constexpr char const* ptr = "abc";
         constexpr ext::array_view<char const> view = ext::view(ptr, ptr + 3);
+        static_cast<void>(view);
     }
 
     SECTION("constexpr query of size and pointer")
