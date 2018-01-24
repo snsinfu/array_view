@@ -300,11 +300,9 @@ TEST_CASE("array_view supports constexpr for literal strings")
         constexpr ext::array_view<char const> view = ext::view("abc");
         constexpr char const& a = view.front();
         constexpr char const& b = view[1];
-        constexpr char const& c = view.at(2);
         constexpr char const& z = view.back();
         CHECK(a == 'a');
         CHECK(b == 'b');
-        CHECK(c == 'c');
         CHECK(z == '\0');
     }
 

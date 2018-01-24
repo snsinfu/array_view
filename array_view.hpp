@@ -118,11 +118,12 @@ namespace ext
         /// Returns a reference to the idx-th element.
         /// .
         /// @exception std::out_of_range if the index is out of bounds.
-        constexpr reference at(size_type idx) const
+        reference at(size_type idx) const
         {
-            return idx < size() ? operator[](idx)
-                                : throw std::out_of_range(
-                                      "array_view access out-of-bounds");
+            if (idx >= size()) {
+                throw std::out_of_range("array_view access out-of-bounds");
+            }
+            return operator[](idx);
         }
 
         /// Returns an iterator to the beginning.
