@@ -1,0 +1,37 @@
+dist: trusty
+
+language: cpp
+
+matrix:
+  include:
+    # Ubuntu 18.04-equivalent g++ on Travis' Ubuntu 14.04
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+        - M_CXX=g++-7
+
+    # Ubuntu 18.04-equivalent clang on Travis' Ubuntu 14.04
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5.0 # Travis uses Trusty
+          packages:
+            - clang-5.0
+            - libc++-dev
+      env:
+        - M_CXX=clang++-5.0
+        - M_CXXFLAGS="-stdlib=libc++"
+
+script:
+  - mkdir tests/build
+  - cd tests/build
+  - cmake .. -DCMAKE_CXX_COMPILER="${M_CXX}" -DCMAKE_CXX_FLAGS="${M_CXXFLAGS}"
+  - cmake --build .
+  - ./run
