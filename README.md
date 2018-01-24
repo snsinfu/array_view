@@ -29,28 +29,25 @@ Just copy [array\_view.hpp][header] to your include directory.
 
 ### Example
 
-```c++
-#include <iostream>
-#include <vector>
-#include <array_view.hpp>
+Use `ext::view()` to create a view from a container like `std::vector`. The
+created view would then work as a random-access range and also support subview
+operations such as `subview(i, n)`, `first(n)` and `drop_last(n)`.
 
-void print_init(ext::array_view<int const> view)
-{
-    for (int const& num : view.drop_last(1)) {
-        std::cout << num << ' ';
+    #include <iostream>
+    #include <vector>
+    #include <array_view.hpp>
+    
+    int main()
+    {
+        std::vector<int> vector = {1, 2, 3, 4};
+        ext::array_view<int> view = ext::view(vector);
+
+        for (int num : view.drop_last(1)) {
+            std::cout << num << ' ';
+        }
+        std::cout << '\n';
+        // Prints: 1 2 3
     }
-    std::cout << '\n';
-}
-
-int main()
-{
-    std::vector<int> vector = {1, 2, 3, 4};
-    print_init(ext::view(vector)); // Prints: 1 2 3
-
-    int array[] = {5, 6, 7, 8};
-    print_init(ext::view(array)); // Prints: 5 6 7
-}
-```
 
 ## License
 
