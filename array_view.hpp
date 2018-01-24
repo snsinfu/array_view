@@ -115,8 +115,9 @@ namespace ext
             return data()[idx];
         }
 
-        /// Returns a reference to the idx-th element. Throws
-        /// std::out_of_range if the index is out of bounds.
+        /// Returns a reference to the idx-th element.
+        /// .
+        /// @exception std::out_of_range if the index is out of bounds.
         constexpr reference at(size_type idx) const
         {
             return idx < size() ? operator[](idx)
