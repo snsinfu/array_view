@@ -12,6 +12,7 @@ accessing contiguous sequence of objects.
 - [Installation](#installation)
 - [Usage](#usage)
 - [API](#api)
+- [Test](#test)
 - [License](#license)
 
 [cxx-badge]: https://img.shields.io/badge/C%2B%2B-11-orange.svg
@@ -124,6 +125,18 @@ Given `array_view` objects `v` and `w`:
 |---------------|---------------------|
 | v.swap(w)     | v and w are swapped |
 | v.as\_const() | returns const view  |
+
+## Test
+
+To run test, go to repository root and type following commands:
+
+```console
+mkdir tests/build
+cd tests/build
+cmake ..
+cmake --build .
+./run
+```
 
 ## License
 
