@@ -41,9 +41,10 @@ Just copy [array\_view.hpp][header] to your include directory.
 
 ### Example
 
-Use `ext::view()` to create a view from a container like `std::vector`. The
-created view would then work as a random-access range and also support subview
-operations such as `subview(i, n)`, `first(n)` and `drop_last(n)`.
+Use `ext::make_array_view()` to create a view from a container like
+`std::vector`. The created view would then work as a random-access range and
+also support subview operations such as `subview(i, n)`, `first(n)` and
+`drop_last(n)`.
 
     #include <iostream>
     #include <vector>
@@ -52,7 +53,7 @@ operations such as `subview(i, n)`, `first(n)` and `drop_last(n)`.
     int main()
     {
         std::vector<int> vector = {1, 2, 3, 4};
-        ext::array_view<int> view = ext::view(vector);
+        ext::array_view<int> view = ext::make_array_view(vector);
 
         for (int num : view.drop_last(1)) {
             std::cout << num << ' ';
@@ -60,12 +61,6 @@ operations such as `subview(i, n)`, `first(n)` and `drop_last(n)`.
         std::cout << '\n';
         // Prints: 1 2 3
     }
-
-### Doxygen reference
-
-- [Main page](https://snsinfu.github.io/array_view/)
-- [ext](https://snsinfu.github.io/array_view/namespaceext.html)
-- [ext::array_view](https://snsinfu.github.io/array_view/classext_1_1array__view.html)
 
 ## License
 

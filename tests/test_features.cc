@@ -12,13 +12,13 @@ TEST_CASE("array_view can access vector elements")
 
     SECTION("smoke test")
     {
-        ext::array_view<int> view = ext::view(vector);
+        ext::array_view<int> view = ext::make_array_view(vector);
         static_cast<void>(view);
     }
 
     SECTION("won't throw")
     {
-        CHECK(noexcept(ext::view(vector)));
+        CHECK(noexcept(ext::make_array_view(vector)));
     }
 }
 
@@ -28,13 +28,13 @@ TEST_CASE("array_view can access built-in arrays")
 
     SECTION("smoke test")
     {
-        ext::array_view<int> view = ext::view(array);
+        ext::array_view<int> view = ext::make_array_view(array);
         static_cast<void>(view);
     }
 
     SECTION("won't throw")
     {
-        CHECK(noexcept(ext::view(array)));
+        CHECK(noexcept(ext::make_array_view(array)));
     }
 }
 
@@ -44,13 +44,13 @@ TEST_CASE("array_view can access std::array")
 
     SECTION("smoke test")
     {
-        ext::array_view<int> view = ext::view(array);
+        ext::array_view<int> view = ext::make_array_view(array);
         static_cast<void>(view);
     }
 
     SECTION("won't throw")
     {
-        CHECK(noexcept(ext::view(array)));
+        CHECK(noexcept(ext::make_array_view(array)));
     }
 }
 
@@ -63,13 +63,13 @@ TEST_CASE("array_view can access std::vector with custom allocator")
 
     SECTION("smoke test")
     {
-        ext::array_view<int> view = ext::view(vector);
+        ext::array_view<int> view = ext::make_array_view(vector);
         static_cast<void>(view);
     }
 
     SECTION("won't throw")
     {
-        CHECK(noexcept(ext::view(vector)));
+        CHECK(noexcept(ext::make_array_view(vector)));
     }
 }
 
@@ -79,13 +79,13 @@ TEST_CASE("array_view can access std::string")
 
     SECTION("smoke test")
     {
-        ext::array_view<char const> view = ext::view(string);
+        ext::array_view<char const> view = ext::make_array_view(string);
         static_cast<void>(view);
     }
 
     SECTION("won't throw")
     {
-        CHECK(noexcept(ext::view(string)));
+        CHECK(noexcept(ext::make_array_view(string)));
     }
 }
 
@@ -97,13 +97,13 @@ TEST_CASE("array_view can access raw memory range")
 
     SECTION("smoke test")
     {
-        ext::array_view<int> view = ext::view(ptr, size);
+        ext::array_view<int> view = ext::make_array_view(ptr, size);
         static_cast<void>(view);
     }
 
     SECTION("may fail")
     {
-        CHECK_FALSE(noexcept(ext::view(ptr, size)));
+        CHECK_FALSE(noexcept(ext::make_array_view(ptr, size)));
     }
 }
 
@@ -115,13 +115,13 @@ TEST_CASE("array_view can access raw memory range (begin-end formalism)")
 
     SECTION("smoke test")
     {
-        ext::array_view<int> view = ext::view(begin, end);
+        ext::array_view<int> view = ext::make_array_view(begin, end);
         static_cast<void>(view);
     }
 
     SECTION("may fail")
     {
-        CHECK_FALSE(noexcept(ext::view(begin, end)));
+        CHECK_FALSE(noexcept(ext::make_array_view(begin, end)));
     }
 }
 
@@ -135,7 +135,7 @@ TEST_CASE("array_view is default constructible")
 TEST_CASE("array_view supports accessing elements by indidces")
 {
     std::vector<int> vector = {0, 1, 2, 3};
-    ext::array_view<int> const view = ext::view(vector);
+    ext::array_view<int> const view = ext::make_array_view(vector);
 
     SECTION("read")
     {
@@ -153,7 +153,7 @@ TEST_CASE("array_view supports accessing elements by indidces")
 TEST_CASE("array_view supports bounds-checked access to elements")
 {
     std::vector<int> vector = {0, 1, 2, 3};
-    ext::array_view<int> const view = ext::view(vector);
+    ext::array_view<int> const view = ext::make_array_view(vector);
 
     SECTION("read")
     {
@@ -170,7 +170,7 @@ TEST_CASE("array_view supports bounds-checked access to elements")
 TEST_CASE("array_view supports front and back elements access")
 {
     std::vector<int> vector = {0, 1, 2, 3};
-    ext::array_view<int> const view = ext::view(vector);
+    ext::array_view<int> const view = ext::make_array_view(vector);
 
     CHECK(view.front() == 0);
     CHECK(view.back() == 3);
@@ -179,7 +179,7 @@ TEST_CASE("array_view supports front and back elements access")
 TEST_CASE("array_view provides raw pointer")
 {
     std::vector<int> vector = {0, 1, 2, 3};
-    ext::array_view<int> const view = ext::view(vector);
+    ext::array_view<int> const view = ext::make_array_view(vector);
 
     SECTION("fact check")
     {
@@ -195,7 +195,7 @@ TEST_CASE("array_view provides raw pointer")
 TEST_CASE("array_view provides element count")
 {
     std::vector<int> vector = {0, 1, 2, 3};
-    ext::array_view<int> const view = ext::view(vector);
+    ext::array_view<int> const view = ext::make_array_view(vector);
 
     SECTION("fact check")
     {
@@ -211,7 +211,7 @@ TEST_CASE("array_view provides element count")
 TEST_CASE("array_view supports range-based for loop")
 {
     std::vector<int> vector = {0, 1, 2, 3};
-    ext::array_view<int> const view = ext::view(vector);
+    ext::array_view<int> const view = ext::make_array_view(vector);
     for (int& elm : view) {
         elm++;
     }
@@ -220,7 +220,7 @@ TEST_CASE("array_view supports range-based for loop")
 TEST_CASE("array_view provides iterators")
 {
     std::vector<int> vector = {0, 1, 2, 3};
-    ext::array_view<int> const view = ext::view(vector);
+    ext::array_view<int> const view = ext::make_array_view(vector);
 
     SECTION("fact check")
     {
@@ -244,7 +244,7 @@ TEST_CASE("array_view provides iterators")
 TEST_CASE("array_view provides reverse iterators")
 {
     std::vector<int> vector = {0, 1, 2, 3};
-    ext::array_view<int> const view = ext::view(vector);
+    ext::array_view<int> const view = ext::make_array_view(vector);
 
     SECTION("fact check")
     {
@@ -269,27 +269,27 @@ TEST_CASE("array_view supports constexpr for literal strings")
 {
     SECTION("constexpr view")
     {
-        constexpr ext::array_view<char const> view = ext::view("abc");
+        constexpr ext::array_view<char const> view = ext::make_array_view("abc");
         static_cast<void>(view);
     }
 
     SECTION("constexpr view (ptr/size memory)")
     {
         constexpr char const* ptr = "abc";
-        constexpr ext::array_view<char const> view = ext::view(ptr, 3);
+        constexpr ext::array_view<char const> view = ext::make_array_view(ptr, 3);
         static_cast<void>(view);
     }
 
     SECTION("constexpr view (begin/end memory)")
     {
         constexpr char const* ptr = "abc";
-        constexpr ext::array_view<char const> view = ext::view(ptr, ptr + 3);
+        constexpr ext::array_view<char const> view = ext::make_array_view(ptr, ptr + 3);
         static_cast<void>(view);
     }
 
     SECTION("constexpr query of size and pointer")
     {
-        constexpr ext::array_view<char const> view = ext::view("abc");
+        constexpr ext::array_view<char const> view = ext::make_array_view("abc");
         constexpr std::size_t size = view.size();
         constexpr char const* ptr = view.data();
         CHECK(size == 4); // Note the terminating nul character
@@ -297,7 +297,7 @@ TEST_CASE("array_view supports constexpr for literal strings")
 
     SECTION("constexpr access of elements")
     {
-        constexpr ext::array_view<char const> view = ext::view("abc");
+        constexpr ext::array_view<char const> view = ext::make_array_view("abc");
         constexpr char const& a = view.front();
         constexpr char const& b = view[1];
         constexpr char const& z = view.back();
@@ -308,7 +308,7 @@ TEST_CASE("array_view supports constexpr for literal strings")
 
     SECTION("constexpr iterators")
     {
-        constexpr ext::array_view<char const> view = ext::view("abc");
+        constexpr ext::array_view<char const> view = ext::make_array_view("abc");
         constexpr auto beg = view.begin();
         constexpr auto end = view.end();
         CHECK(beg != end);
@@ -316,14 +316,14 @@ TEST_CASE("array_view supports constexpr for literal strings")
 
     SECTION("constexpr transformation to const view")
     {
-        constexpr ext::array_view<char const> view = ext::view("abc");
+        constexpr ext::array_view<char const> view = ext::make_array_view("abc");
         constexpr ext::array_view<char const> cview = view.as_const();
         CHECK(cview == view);
     }
 
     SECTION("constexpr slicing")
     {
-        constexpr ext::array_view<char const> view = ext::view("abc");
+        constexpr ext::array_view<char const> view = ext::make_array_view("abc");
         constexpr ext::array_view<char const> subview = view.subview(1, 2);
         constexpr ext::array_view<char const> first = view.first(2);
         constexpr ext::array_view<char const> last = view.last(2);
@@ -338,7 +338,7 @@ TEST_CASE("array_view supports constexpr for literal strings")
 
     SECTION("constexpr emptiness check")
     {
-        constexpr ext::array_view<char const> view = ext::view("abc");
+        constexpr ext::array_view<char const> view = ext::make_array_view("abc");
         constexpr bool empty = view.empty();
         CHECK_FALSE(empty);
     }
@@ -347,7 +347,7 @@ TEST_CASE("array_view supports constexpr for literal strings")
 TEST_CASE("array_view can be transformed to const view")
 {
     std::vector<int> vector = {0, 1, 2, 3};
-    ext::array_view<int> const view = ext::view(vector);
+    ext::array_view<int> const view = ext::make_array_view(vector);
 
     SECTION("fact check")
     {
@@ -364,7 +364,7 @@ TEST_CASE("array_view can be transformed to const view")
 TEST_CASE("array_view can be implicitly converted to const view")
 {
     std::vector<int> vector = {0, 1, 2, 3};
-    ext::array_view<int> const view = ext::view(vector);
+    ext::array_view<int> const view = ext::make_array_view(vector);
 
     SECTION("fact check")
     {
@@ -384,8 +384,8 @@ TEST_CASE("two array_views can be swapped")
     std::vector<int> vector1 = {0, 1, 2, 3};
     std::vector<int> vector2 = {4, 5};
 
-    ext::array_view<int> view1 = ext::view(vector1);
-    ext::array_view<int> view2 = ext::view(vector2);
+    ext::array_view<int> view1 = ext::make_array_view(vector1);
+    ext::array_view<int> view2 = ext::make_array_view(vector2);
 
     view1.swap(view2);
 
@@ -401,8 +401,8 @@ TEST_CASE("two array_views can be compared for shallow equality")
     std::vector<int> vector1 = {0, 1, 2, 3};
     std::vector<int> vector2 = {0, 1, 2, 3};
 
-    ext::array_view<int> const view1 = ext::view(vector1);
-    ext::array_view<int> const view2 = ext::view(vector2);
+    ext::array_view<int> const view1 = ext::make_array_view(vector1);
+    ext::array_view<int> const view2 = ext::make_array_view(vector2);
 
     SECTION("fact check")
     {
@@ -421,8 +421,8 @@ TEST_CASE("const and mutable array_views can be compared")
 {
     std::vector<int> vector = {0, 1, 2, 3};
 
-    ext::array_view<int> const mutable_view = ext::view(vector);
-    ext::array_view<int const> const const_view = ext::view(vector);
+    ext::array_view<int> const mutable_view = ext::make_array_view(vector);
+    ext::array_view<int const> const const_view = ext::make_array_view(vector);
 
     SECTION("fact check")
     {
@@ -444,7 +444,7 @@ TEST_CASE("const and mutable array_views can be compared")
 TEST_CASE("array_view can be sliced")
 {
     std::vector<int> vector = {0, 1, 2, 3};
-    ext::array_view<int> const view = ext::view(vector);
+    ext::array_view<int> const view = ext::make_array_view(vector);
 
     SECTION("closed slice")
     {
@@ -457,7 +457,7 @@ TEST_CASE("array_view can be sliced")
 TEST_CASE("array_view can be sliced into prefix")
 {
     std::vector<int> vector = {0, 1, 2, 3};
-    ext::array_view<int> const view = ext::view(vector);
+    ext::array_view<int> const view = ext::make_array_view(vector);
     ext::array_view<int> const first = view.first(2);
     CHECK(first == view.subview(0, 2));
 }
@@ -465,7 +465,7 @@ TEST_CASE("array_view can be sliced into prefix")
 TEST_CASE("array_view can be sliced into suffix")
 {
     std::vector<int> vector = {0, 1, 2, 3};
-    ext::array_view<int> const view = ext::view(vector);
+    ext::array_view<int> const view = ext::make_array_view(vector);
     ext::array_view<int> const first = view.last(2);
     CHECK(first == view.subview(view.size() - 2, 2));
 }
@@ -473,7 +473,7 @@ TEST_CASE("array_view can be sliced into suffix")
 TEST_CASE("array_view can be sliced after prefix")
 {
     std::vector<int> vector = {0, 1, 2, 3};
-    ext::array_view<int> const view = ext::view(vector);
+    ext::array_view<int> const view = ext::make_array_view(vector);
     ext::array_view<int> const tail = view.drop_first(2);
     CHECK(tail == view.subview(2, view.size() - 2));
 }
@@ -481,7 +481,7 @@ TEST_CASE("array_view can be sliced after prefix")
 TEST_CASE("array_view can be sliced before suffix")
 {
     std::vector<int> vector = {0, 1, 2, 3};
-    ext::array_view<int> const view = ext::view(vector);
+    ext::array_view<int> const view = ext::make_array_view(vector);
     ext::array_view<int> const init = view.drop_last(2);
     CHECK(init == view.subview(0, view.size() - 2));
 }
@@ -492,7 +492,7 @@ TEST_CASE("array_view provides emptiness check")
 
     SECTION("fact check")
     {
-        ext::array_view<int> const view = ext::view(vector);
+        ext::array_view<int> const view = ext::make_array_view(vector);
         ext::array_view<int> const empty_view;
         CHECK_FALSE(view.empty());
         CHECK(empty_view.empty());
@@ -500,7 +500,7 @@ TEST_CASE("array_view provides emptiness check")
 
     SECTION("must succeed")
     {
-        ext::array_view<int> view = ext::view(vector);
+        ext::array_view<int> view = ext::make_array_view(vector);
         CHECK(noexcept(view.empty()));
     }
 }

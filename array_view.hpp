@@ -336,7 +336,7 @@ namespace ext
     template<typename Cont,
         typename P = decltype(array_view_detail::data(std::declval<Cont&>())),
         typename S = decltype(array_view_detail::size(std::declval<Cont&>()))>
-    constexpr array_view<array_view_detail::deref_t<P>> view(Cont& cont) noexcept
+    constexpr array_view<array_view_detail::deref_t<P>> make_array_view(Cont& cont) noexcept
     {
         return {array_view_detail::data(cont), array_view_detail::size(cont)};
     }
@@ -345,7 +345,7 @@ namespace ext
     ///
     /// The behavior is undefined if the memory region is not valid.
     template<typename T>
-    constexpr array_view<T> view(T* ptr, std::size_t size)
+    constexpr array_view<T> make_array_view(T* ptr, std::size_t size)
     {
         return {ptr, size};
     }
@@ -354,7 +354,7 @@ namespace ext
     ///
     /// The behavior is undefined if the memory region is not valid.
     template<typename T>
-    constexpr array_view<T> view(T* begin, T* end)
+    constexpr array_view<T> make_array_view(T* begin, T* end)
     {
         return {begin, static_cast<std::size_t>(end - begin)};
     }

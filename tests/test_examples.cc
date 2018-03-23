@@ -31,6 +31,6 @@ TEST_CASE("using array_view in a virtual interface")
     std::vector<double> vector = {1.0, 2.0, 3.0};
     double array[] = {4.0, 5.0, 6.0};
 
-    CHECK(rd->reduce(ext::view(vector)) == 6.0);
-    CHECK(rd->reduce(ext::view(array)) == 15.0);
+    CHECK(rd->reduce(ext::make_array_view(vector)) == 6.0);
+    CHECK(rd->reduce(ext::make_array_view(array)) == 15.0);
 }
