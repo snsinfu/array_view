@@ -311,12 +311,14 @@ TEST_CASE("array_view supports constexpr for literal strings")
         constexpr ext::array_view<char const> view = ext::view("abc");
         constexpr auto beg = view.begin();
         constexpr auto end = view.end();
+        CHECK(beg != end);
     }
 
     SECTION("constexpr transformation to const view")
     {
         constexpr ext::array_view<char const> view = ext::view("abc");
         constexpr ext::array_view<char const> cview = view.as_const();
+        CHECK(cview == view);
     }
 
     SECTION("constexpr slicing")
@@ -327,12 +329,18 @@ TEST_CASE("array_view supports constexpr for literal strings")
         constexpr ext::array_view<char const> last = view.last(2);
         constexpr ext::array_view<char const> tail = view.drop_first(2);
         constexpr ext::array_view<char const> init = view.drop_last(2);
+        CHECK(subview.size() == 2);
+        CHECK(first.size() == 2);
+        CHECK(last.size() == 2);
+        CHECK(tail.size() == view.size() - 2);
+        CHECK(init.size() == view.size() - 2);
     }
 
     SECTION("constexpr emptiness check")
     {
         constexpr ext::array_view<char const> view = ext::view("abc");
         constexpr bool empty = view.empty();
+        CHECK_FALSE(empty);
     }
 }
 
@@ -344,6 +352,7 @@ TEST_CASE("array_view can be transformed to const view")
     SECTION("fact check")
     {
         ext::array_view<int const> const cview = view.as_const();
+        CHECK(cview == view);
     }
 
     SECTION("must succeed")
