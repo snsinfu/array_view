@@ -22,7 +22,9 @@ Single header-only library of non-owning array view for C++11 and later.
 `array_view` is a random-access range abstraction of a pointer-length pair seen
 in C APIs, like this:
 
-    void compute_something(double* ptr, size_t len);
+```c
+void compute_something(double* ptr, size_t len);
+```
 
 `array_view` is similar to [GSL][gsl]'s `span`. Notable differences are:
 
@@ -46,21 +48,22 @@ Use `ext::make_array_view()` to create a view from a container like
 also support subview operations such as `subview(i, n)`, `first(n)` and
 `drop_last(n)`.
 
-    #include <iostream>
-    #include <vector>
-    #include <array_view.hpp>
-    
-    int main()
-    {
-        std::vector<int> vector = {1, 2, 3, 4};
-        ext::array_view<int> view = ext::make_array_view(vector);
+```c++
+#include <iostream>
+#include <vector>
+#include <array_view.hpp>
 
-        for (int num : view.drop_last(1)) {
-            std::cout << num << ' ';
-        }
-        std::cout << '\n';
-        // Prints: 1 2 3
+int main()
+{
+    std::vector<int> vector = {1, 2, 3, 4};
+    ext::array_view<int> view = ext::make_array_view(vector);
+
+    for (int num : view.drop_last(1)) {
+        std::cout << num << ' ';
     }
+    std::cout << '\n';
+    // Prints: 1 2 3
+}
 
 ## License
 
