@@ -1,3 +1,5 @@
+// array_view - Lightweight range view of contiguous sequence
+//
 // Copyright snsinfu 2018.
 // Distributed under the Boost Software License, Version 1.0.
 //
@@ -32,10 +34,9 @@
 #include <type_traits> // remove_cv
 #include <utility> // declval
 
-/// Additional vocabulary to the standard.
 namespace ext
 {
-    /// Lightweight view of an array.
+    /// Lightweight range view of contiguous sequence.
     template<typename T>
     class array_view
     {
@@ -53,8 +54,8 @@ namespace ext
         using size_type = std::size_t;
 
         /// The type of iterators. Guaranteed to be a random access iterator.
-        /// Currently implemented as an alias of T* but this may change in the
-        /// future.
+        /// Currently this is implemented as an alias of T* but this may change
+        /// in the future.
         using iterator = T*;
 
         /// The type of reverse iterators. Guaranteed to be a random access
@@ -311,7 +312,7 @@ namespace ext
         {
             return N;
         }
-    }
+    } // namespace detail
 
     /// Creates an array_view of the elements of a contiguous container.
     ///
@@ -357,6 +358,6 @@ namespace ext
     {
         return {begin, static_cast<std::size_t>(end - begin)};
     }
-} // ext
+} // namespace ext
 
 #endif // INCLUDED_ARRAY_VIEW_HPP
