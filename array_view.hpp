@@ -23,8 +23,8 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-#ifndef EXT_ARRAY_VIEW_HPP
-#define EXT_ARRAY_VIEW_HPP
+#ifndef INCLUDED_ARRAY_VIEW_HPP
+#define INCLUDED_ARRAY_VIEW_HPP
 
 #include <cstddef> // size_t
 #include <iterator> // reverse_iterator
@@ -359,4 +359,4 @@ namespace ext
     }
 } // ext
 
-#endif
+#endif // INCLUDED_ARRAY_VIEW_HPP
