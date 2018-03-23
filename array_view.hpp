@@ -34,6 +34,51 @@
 #include <type_traits> // remove_cv
 #include <utility> // declval
 
+namespace array_view_detail
+{
+    // Removes top-level pointer. SFINAE friendly.
+    template<typename T>
+    struct deref;
+
+    template<typename T>
+    struct deref<T*>
+    {
+        using type = T;
+    };
+
+    template<typename T>
+    using deref_t = typename deref<T>::type;
+
+    // Returns a pointer to the first element of a contiguous container.
+    //
+    // XXX: Here almost no concept checks are done, so this may be broken for
+    //      non-STL types and can cause nasty run-time memory error!
+    template<typename Cont>
+    constexpr auto data(Cont& cont) noexcept -> decltype(cont.data())
+    {
+        return cont.data();
+    }
+
+    template<typename T, std::size_t N>
+    constexpr auto data(T (&arr)[N]) noexcept -> T*
+    {
+        return arr;
+    }
+
+    // Returns the number of elements in a container.
+    template<typename Cont>
+    constexpr auto size(Cont& cont) noexcept -> decltype(cont.size())
+    {
+        return cont.size();
+    }
+
+    template<typename T, std::size_t N>
+    constexpr auto size(T (&)[N]) noexcept -> std::size_t
+    {
+        return N;
+    }
+} // namespace array_view_detail
+
 namespace ext
 {
     /// Lightweight range view of contiguous sequence.
@@ -269,51 +314,6 @@ namespace ext
         return !(lhs == rhs);
     }
 
-    namespace detail
-    {
-        // Removes top-level pointer. SFINAE friendly.
-        template<typename T>
-        struct deref;
-
-        template<typename T>
-        struct deref<T*>
-        {
-            using type = T;
-        };
-
-        template<typename T>
-        using deref_t = typename deref<T>::type;
-
-        // Returns a pointer to the first element of a contiguous container.
-        //
-        // XXX: Here almost no concept checks are done, so this may be broken
-        //      for non-STL types and can cause nasty run-time memory error!
-        template<typename Cont>
-        constexpr auto data(Cont& cont) noexcept -> decltype(cont.data())
-        {
-            return cont.data();
-        }
-
-        template<typename T, std::size_t N>
-        constexpr auto data(T (&arr)[N]) noexcept -> T*
-        {
-            return arr;
-        }
-
-        // Returns the number of elements in a container.
-        template<typename Cont>
-        constexpr auto size(Cont& cont) noexcept -> decltype(cont.size())
-        {
-            return cont.size();
-        }
-
-        template<typename T, std::size_t N>
-        constexpr auto size(T (&)[N]) noexcept -> std::size_t
-        {
-            return N;
-        }
-    } // namespace detail
-
     /// Creates an array_view of the elements of a contiguous container.
     ///
     /// For an array the pointer to the first element and the compile-time
@@ -334,11 +334,11 @@ namespace ext
     /// library disallows implicit conversion and forces explicit conversion
     /// via this function.
     template<typename Cont,
-        typename P = decltype(detail::data(std::declval<Cont&>())),
-        typename S = decltype(detail::size(std::declval<Cont&>()))>
-    constexpr array_view<detail::deref_t<P>> view(Cont& cont) noexcept
+        typename P = decltype(array_view_detail::data(std::declval<Cont&>())),
+        typename S = decltype(array_view_detail::size(std::declval<Cont&>()))>
+    constexpr array_view<array_view_detail::deref_t<P>> view(Cont& cont) noexcept
     {
-        return {detail::data(cont), detail::size(cont)};
+        return {array_view_detail::data(cont), array_view_detail::size(cont)};
     }
 
     /// Creates an array_view of the region [ptr, ptr + size).
