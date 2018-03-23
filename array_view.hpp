@@ -176,12 +176,6 @@ namespace ext
             return {data() + offset, count};
         }
 
-        /// Returns a view of a subarray starts at offset.
-        constexpr array_view subview(size_type offset) const
-        {
-            return subview(offset, size() - offset);
-        }
-
         /// Returns a view of the first count elements.
         constexpr array_view first(size_type count) const
         {
@@ -197,7 +191,7 @@ namespace ext
         /// Returns a view of the array except the first count elements.
         constexpr array_view drop_first(size_type count) const
         {
-            return subview(count);
+            return subview(count, size() - count);
         }
 
         /// Returns a view of the array except the last count elements.
