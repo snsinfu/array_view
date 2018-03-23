@@ -1,13 +1,15 @@
-array\_view
-===========
+array\_view for C++11
+=====================
 
 ![C++11][cxx-badge]
 [![Boost License][license-badge]][license-url]
 [![Build Status][travis-badge]][travis-url]
 
-Single header-only library of non-owning array view for C++11 and later.
+Single header-only library of `array_view`, a lightweight range view class for
+accessing contiguous sequence of objects.
 
-- [Introduction](#introduction)
+- [Why](#why)
+- [Installation](#installation)
 - [Usage](#usage)
 - [License](#license)
 
@@ -17,36 +19,39 @@ Single header-only library of non-owning array view for C++11 and later.
 [travis-badge]: https://travis-ci.org/snsinfu/array_view.svg?branch=master
 [travis-url]: https://travis-ci.org/snsinfu/array_view
 
-## Introduction
+## Why?
 
-`array_view` is a random-access range abstraction of a pointer-length pair seen
-in C APIs, like this:
+`array_view` is a lightweight random-access range abstraction of an array slice:
 
-```c
-void compute_something(double* ptr, size_t len);
+```
+double array[5] = {1, 2, 3, 4, 5};
+ext::array_view<double> view{array, 3}; // view of {1, 2, 3} part
 ```
 
-`array_view` is similar to [GSL][gsl]'s `span`. Notable differences are:
-
-- `array_view` disallows implicit conversion from contiguous containers
-- `array_view` uses `size_t` for size and index
+The concept is the same as that of [GSL][gsl]'s `span`, but `array_view` uses
+`size_t` for index type for better compatibility with the standard library. I'm
+okay with GSL's idea of using signed index itself, but the incompatibility with
+the standard library really annoys me.
 
 [gsl]: https://github.com/Microsoft/GSL
 
-## Usage
+## Installation
 
-### Installation
-
-Just copy [array\_view.hpp][header] to your include directory.
+This library has no dependency. Just copy [array\_view.hpp][header] to your
+include directory and you are done!
 
 [header]: https://raw.githubusercontent.com/snsinfu/array_view/master/array_view.hpp
 
-### Example
+## Usage
 
-Use `ext::make_array_view()` to create a view from a container like
-`std::vector`. The created view would then work as a random-access range and
-also support subview operations such as `subview(i, n)`, `first(n)` and
-`drop_last(n)`.
+The library provides two things:
+
+- `ext::array_view`
+- `ext::make_array_view()`
+
+Use `ext::make_array_view()` to create a view from a container object or an
+array. The created view then works as a random-access range and also supports
+slicing operations such as `subview(i, n)`, `first(n)` and `drop_last(n)`.
 
 ```c++
 #include <iostream>
@@ -58,12 +63,13 @@ int main()
     std::vector<int> vector = {1, 2, 3, 4};
     ext::array_view<int> view = ext::make_array_view(vector);
 
-    for (int num : view.drop_last(1)) {
+    for (int& num : view.drop_last(1)) {
         std::cout << num << ' ';
     }
     std::cout << '\n';
     // Prints: 1 2 3
 }
+```
 
 ## License
 
